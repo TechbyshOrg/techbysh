@@ -493,6 +493,11 @@ a:hover {
     .mobile-menu-toggle.active {
         color: #fd2e35;
     }
+
+    .footer-bottom {
+        flex-direction: column;
+        align-items: center;
+    }
 }
 
 @media (max-width: 480px) {
