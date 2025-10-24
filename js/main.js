@@ -1,4 +1,36 @@
 $(document).ready(function() {
+    const apps = [
+        {
+            name: "FlipTap",
+            package: "com.techbysh.fliptap",
+            icon: "https://play-lh.googleusercontent.com/niDChuoHvXITu2zK6xS-nCJ-wccPM0cHiRgKOeiZTiq68H9TlLNIamw3raVqNGKyzeSWxtR0x36DJGMTgmHHYA=w480-h960-rw",
+            short_description: "A clean counter app: tap or flip to increase the count."
+        }
+    ];
+
+    const $container = $('#mobile-apps-container');
+    $container.empty();
+
+    apps.forEach(app => {
+        const playStoreLink = `https://play.google.com/store/apps/details?id=${app.package}`;
+        const card = `
+            <div class="product-card animate-fade-in">
+                <div class="product-icon" style="background-color: rgba(255,0,0,0.05); padding:10px;">
+                    <img src="${app.icon}" alt="${app.name}" width="65" height="65" style="border-radius:2px;" />
+                </div>
+                <div class="product-info">
+                    <h3>${app.name}</h3>
+                    <p>${app.short_description}</p>
+                    <a href="${playStoreLink}" class="btn btn-outline" target="_blank" rel="noopener">
+                        get it on Google Play
+                    </a>
+                </div>
+            </div>
+        `;
+        $container.append(card);
+    });
+
+
     $(document).ready(function () {
         $.ajax({
             url: "https://api.wordpress.org/plugins/info/1.2/",
@@ -44,6 +76,48 @@ $(document).ready(function() {
             }
         });
     });
+
+    // fetching android apps from playstore api having user name techbysh and inject it to the container
+    // $.ajax({
+    //     url: "https://playstoreapi.com/api/store/apps",
+    //     dataType: "json",
+    //     data: {
+    //         developer: "techbysh",
+    //         limit: 10
+    //     },
+    //     success: function (response) {
+    //         const apps = response.apps || [];
+    //         const $container = $('#mobile-apps-container');
+    //         $container.empty();
+
+    //         if (apps.length === 0) {
+    //             $container.append('<p>No apps found for this developer.</p>');
+    //         } else {
+    //             apps.forEach(function (app) {
+    //                 const iconUrl = app.icon || 'https://via.placeholder.com/65';
+    //                 const playStoreLink = `https://play.google.com/store/apps/details?id=${app.package_name}`;
+    //                 const card = `
+    //                     <div class="product-card animate-fade-in">
+    //                         <div class="product-icon" style="background-color: rgba(255, 0, 0, 0.05); padding: 10px;">
+    //                             <img src="${iconUrl}" alt="${app.name}" width="65" height="65" style="border-radius: 2px;" />
+    //                         </div>
+    //                         <div class="product-info">
+    //                             <h3>${app.name}</h3>
+    //                             <p>${app.short_description}</p>
+    //                             <a href="${playStoreLink}" class="btn btn-outline" target="_blank" rel="noopener">Learn More</a>
+    //                         </div>
+    //                     </div>
+    //                 `;
+    //                 $container.append(card);
+    //             });
+    //         }
+    //     },
+    //     error: function () {
+    //         $('#android-apps-container').append('<p>Error fetching apps.</p>');
+    //     }
+    // });
+
+
 
     // Mobile menu toggle
     $('.mobile-menu-toggle').click(function() {
