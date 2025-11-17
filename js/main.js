@@ -5,6 +5,12 @@ $(document).ready(function() {
             package: "com.techbysh.fliptap",
             icon: "https://play-lh.googleusercontent.com/niDChuoHvXITu2zK6xS-nCJ-wccPM0cHiRgKOeiZTiq68H9TlLNIamw3raVqNGKyzeSWxtR0x36DJGMTgmHHYA=w480-h960-rw",
             short_description: "A clean counter app: tap or flip to increase the count."
+        },
+        {
+            name: "Cliply - Clipboard Manager",
+            package: "com.techbysh.cliply",
+            icon: "https://play-lh.googleusercontent.com/t5h8U8Hrns_w0yY0FuxdvXqU30kV1B-ZzqaLgoASypMeg5jHr51s_Jh9Qgtx86rdoMsjFLdCqLaqJTyDdbfa=w240-h480-rw",
+            short_description: "Manage your clipboard history with ease."
         }
     ];
 
