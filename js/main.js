@@ -1,195 +1,197 @@
-$(document).ready(function() {
-    const apps = [
-        {
-            name: "FlipTap",
-            package: "com.techbysh.fliptap",
-            icon: "https://play-lh.googleusercontent.com/niDChuoHvXITu2zK6xS-nCJ-wccPM0cHiRgKOeiZTiq68H9TlLNIamw3raVqNGKyzeSWxtR0x36DJGMTgmHHYA=w480-h960-rw",
-            short_description: "A clean counter app: tap or flip to increase the count."
-        },
-        {
-            name: "Cliply - Clipboard Manager",
-            package: "com.techbysh.cliply",
-            icon: "https://play-lh.googleusercontent.com/t5h8U8Hrns_w0yY0FuxdvXqU30kV1B-ZzqaLgoASypMeg5jHr51s_Jh9Qgtx86rdoMsjFLdCqLaqJTyDdbfa=w240-h480-rw",
-            short_description: "Manage your clipboard history with ease."
+(function ($) {
+    'use strict';
+
+    const site = window.TechbyshSite || { mobileApps: [], wpAuthor: 'techbysh', contactEmail: 'info@techbysh.com' };
+    let loadedPlugins = [];
+
+    function escapeHtml(str) {
+        if (!str) return '';
+        return String(str)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;');
+    }
+
+    function stripHtml(str) {
+        const div = document.createElement('div');
+        div.innerHTML = str || '';
+        return div.textContent || div.innerText || '';
+    }
+
+    function skeletonCards(count) {
+        let html = '';
+        for (let i = 0; i < count; i++) {
+            html += `
+                <div class="product-card glass-card skeleton-card" aria-hidden="true">
+                    <div class="skeleton skeleton-icon"></div>
+                    <div class="skeleton skeleton-title"></div>
+                    <div class="skeleton skeleton-text"></div>
+                    <div class="skeleton skeleton-btn"></div>
+                </div>`;
         }
-    ];
+        return html;
+    }
 
-    const $container = $('#mobile-apps-container');
-    $container.empty();
+    function productCard(opts) {
+        const { iconUrl, name, description, typeLabel, primaryHref, primaryLabel, secondaryHref, secondaryLabel } = opts;
+        let secondary = '';
+        if (secondaryHref) {
+            const external = /^https?:\/\//i.test(secondaryHref);
+            const targetAttr = external ? ' target="_blank" rel="noopener"' : '';
+            secondary = `<a href="${escapeHtml(secondaryHref)}" class="card-link card-link--muted"${targetAttr}>${escapeHtml(secondaryLabel)}</a>`;
+        }
 
-    apps.forEach(app => {
-        const playStoreLink = `https://play.google.com/store/apps/details?id=${app.package}`;
-        const card = `
-            <div class="product-card animate-fade-in">
-                <div class="product-icon" style="background-color: rgba(255,0,0,0.05); padding:10px;">
-                    <img src="${app.icon}" alt="${app.name}" width="65" height="65" style="border-radius:2px;" />
+        return `
+            <article class="product-card glass-card" data-reveal data-tilt>
+                <div class="product-card__top">
+                    <div class="product-icon">
+                        <img src="${escapeHtml(iconUrl)}" alt="" width="72" height="72" loading="lazy" />
+                    </div>
+                    <span class="product-card__badge">${escapeHtml(typeLabel)}</span>
                 </div>
                 <div class="product-info">
-                    <h3>${app.name}</h3>
-                    <p>${app.short_description}</p>
-                    <a href="${playStoreLink}" class="btn btn-outline" target="_blank" rel="noopener">
-                        get it on Google Play
-                    </a>
+                    <h3>${escapeHtml(name)}</h3>
+                    <p>${escapeHtml(description)}</p>
+                    <div class="product-actions">
+                        <a href="${escapeHtml(primaryHref)}" class="btn btn-outline" target="_blank" rel="noopener">${escapeHtml(primaryLabel)}</a>
+                        ${secondary}
+                    </div>
                 </div>
-            </div>
-        `;
-        $container.append(card);
-    });
+            </article>`;
+    }
 
+    function renderMobileApps() {
+        const apps = site.mobileApps || [];
+        const $section = $('#mobile-apps-section');
+        const $container = $('#mobile-apps-container');
 
-    $(document).ready(function () {
+        if (!apps.length) {
+            $section.hide();
+            updateProductsVisibility();
+            refreshUI();
+            return;
+        }
+
+        $section.show();
+        $container.empty();
+
+        apps.forEach(function (app) {
+            const playStoreLink = 'https://play.google.com/store/apps/details?id=' + encodeURIComponent(app.package);
+            $container.append(productCard({
+                iconUrl: app.icon,
+                name: app.name,
+                description: app.short_description,
+                typeLabel: 'Android App',
+                primaryHref: playStoreLink,
+                primaryLabel: 'Get on Google Play',
+                secondaryHref: app.privacyUrl || null,
+                secondaryLabel: 'Privacy Policy'
+            }));
+        });
+
+        updateProductsVisibility();
+        refreshUI();
+    }
+
+    function renderWordPressPlugins(plugins) {
+        loadedPlugins = plugins || [];
+        const $section = $('#wp-plugins-section');
+        const $container = $('#wp-plugins-container');
+
+        if (!plugins.length) {
+            $section.hide();
+            updateProductsVisibility();
+            refreshUI();
+            return;
+        }
+
+        $section.show();
+        $container.empty();
+
+        plugins.forEach(function (plugin) {
+            const iconUrl = (plugin.icons && (plugin.icons['1x'] || plugin.icons['2x'] || plugin.icons.default))
+                || 'https://s.w.org/style/images/codeispoetry.png';
+            const wpLink = 'https://wordpress.org/plugins/' + plugin.slug + '/';
+
+            $container.append(productCard({
+                iconUrl: iconUrl,
+                name: stripHtml(plugin.name),
+                description: stripHtml(plugin.short_description),
+                typeLabel: 'WordPress Plugin',
+                primaryHref: wpLink,
+                primaryLabel: 'View on WordPress.org'
+            }));
+        });
+
+        updateProductsVisibility();
+        refreshUI();
+    }
+
+    function updateProductsVisibility() {
+        const hasPlugins = loadedPlugins.length > 0;
+        const hasApps = (site.mobileApps || []).length > 0;
+
+        if (!hasPlugins && !hasApps) {
+            $('#products-empty').prop('hidden', false);
+        } else {
+            $('#products-empty').prop('hidden', true);
+        }
+    }
+
+    function fetchWordPressPlugins() {
+        const $container = $('#wp-plugins-container');
+        $container.html(skeletonCards(2));
+
         $.ajax({
-            url: "https://api.wordpress.org/plugins/info/1.2/",
-            dataType: "jsonp",
+            url: 'https://api.wordpress.org/plugins/info/1.2/',
+            dataType: 'jsonp',
             data: {
-                action: "query_plugins",
+                action: 'query_plugins',
                 request: {
-                    author: "techbysh",
-                    per_page: 10
+                    author: site.wpAuthor,
+                    per_page: 20
                 }
             },
             success: function (response) {
-                const plugins = response.plugins || [];
-                const $container = $('#wp-plugins-container');
-
-                $container.empty();
-
-                if (plugins.length === 0) {
-                    $container.append('<p>No plugins found for this author.</p>');
-                } else {
-                    plugins.forEach(function (plugin) {
-                        const iconUrl = plugin.icons['1x'] || plugin.icons.default || 'https://s.w.org/style/images/codeispoetry.png';
-                        const wpLink = `https://wordpress.org/plugins/${plugin.slug}/`;
-
-                        const card = `
-                            <div class="product-card animate-fade-in">
-                                <div class="product-icon" style="background-color: rgba(255, 0, 0, 0.05); padding: 10px;">
-                                    <img src="${iconUrl}" alt="${plugin.name}" width="65" height="65" style="border-radius: 2px;" />
-                                </div>
-                                <div class="product-info">
-                                    <h3>${plugin.name}</h3>
-                                    <p>${plugin.short_description}</p>
-                                    <a href="${wpLink}" class="btn btn-outline" target="_blank" rel="noopener">Learn More</a>
-                                </div>
-                            </div>
-                        `;
-                        $container.append(card);
-                    });
-                }
+                renderWordPressPlugins(response.plugins || []);
             },
             error: function () {
-                $('#wp-plugins-container').append('<p>Error fetching plugins.</p>');
-            }
-        });
-    });
-
-    // fetching android apps from playstore api having user name techbysh and inject it to the container
-    // $.ajax({
-    //     url: "https://playstoreapi.com/api/store/apps",
-    //     dataType: "json",
-    //     data: {
-    //         developer: "techbysh",
-    //         limit: 10
-    //     },
-    //     success: function (response) {
-    //         const apps = response.apps || [];
-    //         const $container = $('#mobile-apps-container');
-    //         $container.empty();
-
-    //         if (apps.length === 0) {
-    //             $container.append('<p>No apps found for this developer.</p>');
-    //         } else {
-    //             apps.forEach(function (app) {
-    //                 const iconUrl = app.icon || 'https://via.placeholder.com/65';
-    //                 const playStoreLink = `https://play.google.com/store/apps/details?id=${app.package_name}`;
-    //                 const card = `
-    //                     <div class="product-card animate-fade-in">
-    //                         <div class="product-icon" style="background-color: rgba(255, 0, 0, 0.05); padding: 10px;">
-    //                             <img src="${iconUrl}" alt="${app.name}" width="65" height="65" style="border-radius: 2px;" />
-    //                         </div>
-    //                         <div class="product-info">
-    //                             <h3>${app.name}</h3>
-    //                             <p>${app.short_description}</p>
-    //                             <a href="${playStoreLink}" class="btn btn-outline" target="_blank" rel="noopener">Learn More</a>
-    //                         </div>
-    //                     </div>
-    //                 `;
-    //                 $container.append(card);
-    //             });
-    //         }
-    //     },
-    //     error: function () {
-    //         $('#android-apps-container').append('<p>Error fetching apps.</p>');
-    //     }
-    // });
-
-
-
-    // Mobile menu toggle
-    $('.mobile-menu-toggle').click(function() {
-        $('.main-nav').toggleClass('active');
-        $(this).toggleClass('active');
-    });
-    
-    // Smooth scrolling for anchor links
-    $('a[href^="#"]').on('click', function(e) {
-        e.preventDefault();
-        
-        var target = this.hash;
-        if (target === '#') return;
-        
-        var $target = $(target);
-        if ($target.length) {
-            $('html, body').animate({
-                'scrollTop': $target.offset().top - 80
-            }, 800, 'swing');
-        }
-    });
-    
-    // Scroll animations
-    function checkAnimation() {
-        var windowHeight = $(window).height();
-        var windowTop = $(window).scrollTop();
-        var windowBottom = windowTop + windowHeight;
-        
-        $('[data-animate]').each(function() {
-            var $element = $(this);
-            var elementHeight = $element.outerHeight();
-            var elementTop = $element.offset().top;
-            var elementBottom = elementTop + elementHeight;
-            
-            // Check if element is in viewport
-            if (elementBottom >= windowTop && elementTop <= windowBottom) {
-                $element.addClass('animate');
+                $('#wp-plugins-container').html(
+                    '<p class="section-error" data-reveal>Unable to load WordPress plugins. Please try again later.</p>'
+                );
+                $('#wp-plugins-section').show();
+                loadedPlugins = [];
+                updateProductsVisibility();
+                refreshUI();
             }
         });
     }
-    
-    // Initial check
-    checkAnimation();
-    
-    // Check on scroll
-    $(window).on('scroll', function() {
-        checkAnimation();
-    });
-    
-    // Form submission
-    $('.contact-form').on('submit', function(e) {
-        e.preventDefault();
-        
-        // Here you would typically send the form data to your server
-        // For this static example, we'll just show an alert
-        alert('Thank you for your message! We will get back to you soon.');
-        $(this).trigger('reset');
-    });
-    
-    // Add pulse animation to buttons on hover
-    $('.btn-primary').hover(
-        function() {
-            $(this).addClass('pulse-hover');
-        },
-        function() {
-            $(this).removeClass('pulse-hover');
+
+    function refreshUI() {
+        if (window.TechbyshUI && window.TechbyshUI.observe) {
+            window.TechbyshUI.observe();
         }
-    );
-});
+    }
+
+    function initContactForm() {
+        $('.contact-form').on('submit', function (e) {
+            e.preventDefault();
+            const form = this;
+            const name = form.name.value.trim();
+            const email = form.email.value.trim();
+            const message = form.message.value.trim();
+            const subject = encodeURIComponent('Project inquiry from ' + name);
+            const body = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\n' + message);
+            window.location.href = 'mailto:' + site.contactEmail + '?subject=' + subject + '&body=' + body;
+        });
+    }
+
+    $(document).ready(function () {
+        initContactForm();
+
+        $('#mobile-apps-container').html(skeletonCards(site.mobileApps.length || 1));
+        renderMobileApps();
+        fetchWordPressPlugins();
+    });
+})(jQuery);
