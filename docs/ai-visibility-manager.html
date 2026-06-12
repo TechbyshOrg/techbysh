@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Visibility Manager - Documentation & Support Guide</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --primary-light: #e0e7ff;
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
+            --bg-light: #f8fafc;
+            --border: #e2e8f0;
+            --success: #10b981;
+            --success-light: #d1fae5;
+            --warning: #f59e0b;
+            --warning-light: #fef3c7;
+            --danger: #ef4444;
+            --danger-light: #fee2e2;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            color: var(--text-dark);
+            background-color: #ffffff;
+            line-height: 1.6;
+        }
+
+        /* Layout Grid */
+        .container {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        aside {
+            background-color: var(--bg-light);
+            border-right: 1px solid var(--border);
+            padding: 40px 24px;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 20px;
+            color: var(--primary);
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .menu-list {
+            list-style-type: none;
+        }
+
+        .menu-item {
+            margin-bottom: 8px;
+        }
+
+        .menu-link {
+            display: block;
+            padding: 10px 16px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .menu-link:hover,
+        .menu-link.active {
+            color: var(--primary);
+            background-color: var(--primary-light);
+        }
+
+        /* Main Content Panel */
+        main {
+            padding: 60px 80px;
+            max-width: 900px;
+            overflow-y: auto;
+        }
+
+        h1 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+        }
+
+        section {
+            margin-bottom: 60px;
+            scroll-margin-top: 60px;
+        }
+
+        h2 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border);
+            color: var(--text-dark);
+        }
+
+        p {
+            margin-bottom: 20px;
+            color: #334155;
+            font-size: 16px;
+        }
+
+        /* Alert Banners */
+        .alert {
+            padding: 18px;
+            border-radius: 12px;
+            border-left: 4px solid transparent;
+            margin-bottom: 25px;
+            font-size: 15px;
+        }
+
+        .alert-info {
+            background-color: var(--primary-light);
+            border-left-color: var(--primary);
+            color: #312e81;
+        }
+
+        .alert-warning {
+            background-color: var(--warning-light);
+            border-left-color: var(--warning);
+            color: #78350f;
+        }
+
+        .alert-danger {
+            background-color: var(--danger-light);
+            border-left-color: var(--danger);
+            color: #7f1d1d;
+        }
+
+        /* Cards & Lists */
+        .card {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+            margin-bottom: 30px;
+        }
+
+        .card h3 {
+            margin-bottom: 12px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        ul,
+        ol {
+            margin-bottom: 20px;
+            padding-left: 24px;
+            color: #334155;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        /* Code Block formatting */
+        pre {
+            background-color: #0f172a;
+            color: #f8fafc;
+            padding: 20px;
+            border-radius: 12px;
+            overflow-x: auto;
+            font-family: 'Fira Code', monospace;
+            font-size: 14px;
+            margin-bottom: 25px;
+            border: 1px solid #1e293b;
+        }
+
+        code {
+            font-family: 'Fira Code', monospace;
+            background-color: #f1f5f9;
+            color: #0f172a;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        pre code {
+            background-color: transparent;
+            color: inherit;
+            padding: 0;
+            border-radius: 0;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+
+        th {
+            background-color: var(--bg-light);
+            font-weight: 600;
+            text-align: left;
+            padding: 12px 16px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        td {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+            font-size: 15px;
+        }
+
+        tr:hover td {
+            background-color: var(--bg-light);
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 80px;
+            padding-top: 30px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            aside {
+                height: auto;
+                position: relative;
+                padding: 20px;
+            }
+
+            main {
+                padding: 40px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <aside>
+            <div class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+                    <circle cx="12" cy="12" r="3" />
+                </svg>
+                AI Visibility Manager
+            </div>
+            <ul class="menu-list">
+                <li class="menu-item"><a href="#introduction" class="menu-link active">Introduction</a></li>
+                <li class="menu-item"><a href="#installation" class="menu-link">Installation</a></li>
+                <li class="menu-item"><a href="#dashboard" class="menu-link">Dashboard Overview</a></li>
+                <li class="menu-item"><a href="#bot-manager" class="menu-link">AI Bot Blocker</a></li>
+                <li class="menu-item"><a href="#llms-txt" class="menu-link">llms.txt Generator</a></li>
+                <li class="menu-item"><a href="#referrals" class="menu-link">Referrals Analytics</a></li>
+                <li class="menu-item"><a href="#troubleshooting" class="menu-link">Troubleshooting</a></li>
+                <li class="menu-item"><a href="#privacy" class="menu-link">GDPR & Compliance</a></li>
+                <li class="menu-item"><a href="#developers" class="menu-link">Developer Hooks</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content Panel -->
+        <main>
+            <header>
+                <h1>AI Visibility Manager Documentation</h1>
+                <p class="subtitle">Complete technical reference and installation guide for controlling search crawlers
+                    and Large Language Models (LLMs).</p>
+            </header>
+
+            <!-- Introduction Section -->
+            <section id="introduction">
+                <h2>1. Introduction</h2>
+                <p>AI Visibility Manager is a WordPress plugin designed to help webmasters manage how Artificial
+                    Intelligence bots, search LLMs, and conversational engines index their sites. In the modern web
+                    environment, new crawlers scan sites to feed training datasets and compile references for
+                    conversational search boxes (like ChatGPT Search or Perplexity).</p>
+
+                <div class="alert alert-info">
+                    <strong>Why this matters:</strong> Standard robots.txt rules do not provide granular control over
+                    the latest AI bots, nor do they track referred conversational traffic. This plugin bridges that gap
+                    in a lightweight, self-contained way.
+                </div>
+
+                <p>The plugin operates on three primary pillars:</p>
+                <ul>
+                    <li><strong>Dynamic Bot Control:</strong> Filter robots.txt dynamically to disallow specific crawler
+                        tokens.</li>
+                    <li><strong>Markdown Indexing:</strong> Generate dynamic, cached <code>llms.txt</code> standards.
+                    </li>
+                    <li><strong>Traffic Monitoring:</strong> Safe local logging of referrer agents without bloating DB
+                        tables.</li>
+                </ul>
+            </section>
+
+            <!-- Installation Section -->
+            <section id="installation">
+                <h2>2. Installation & Quick Start</h2>
+                <p>To install the plugin manually or through the WordPress admin panel, follow these steps:</p>
+                <ol>
+                    <li>Download the plugin <code>.zip</code> package from the official directory.</li>
+                    <li>In your WordPress dashboard, navigate to <strong>Plugins > Add New</strong> and click
+                        <strong>Upload Plugin</strong>.</li>
+                    <li>Choose the downloaded file and click <strong>Install Now</strong>.</li>
+                    <li>Once installed, click <strong>Activate Plugin</strong>.</li>
+                    <li>Go to <strong>Settings > AI Visibility Manager</strong> in your admin menu to adjust
+                        configurations.</li>
+                </ol>
+
+                <div class="alert alert-warning">
+                    <strong>Requirement:</strong> The plugin requires Pretty Permalinks (e.g. Post Name) to be enabled
+                    under <em>Settings > Permalinks</em>. Dynamic virtual routing for the <code>/llms.txt</code> file
+                    will fail if plain query permalinks are active.
+                </div>
+            </section>
+
+            <!-- Dashboard Section -->
+            <section id="dashboard">
+                <h2>3. Overview Dashboard</h2>
+                <p>The Overview panel is divided into three sections to help you monitor your site's discoverability:
+                </p>
+
+                <div class="card">
+                    <h3>A. Diagnostics Widgets</h3>
+                    <p>Displays at-a-glance metrics including <strong>Total AI Referrals</strong>, details of the
+                        <strong>Last Referral</strong> (e.g., bot name and how long ago it arrived), and reachability
+                        indicators for the <code>/llms.txt</code> and <code>/robots.txt</code> files.</p>
+                </div>
+
+                <div class="card">
+                    <h3>B. Automated Health Check</h3>
+                    <p>Runs local tests to check settings without calling external APIs. The checks inspect whether:</p>
+                    <ul>
+                        <li>Pretty permalinks are active.</li>
+                        <li>The dynamic <code>/llms.txt</code> file is reachable.</li>
+                        <li>The <code>/robots.txt</code> file is reachable and not blocked by physical root files.</li>
+                        <li>Your site visibility settings encourage or discourage search indexing.</li>
+                        <li>The site is in maintenance mode.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>C. Content Discoverability Report</h3>
+                    <p>Shows the count of public posts and pages currently indexed for LLM ingestion, count of
+                        non-public excluded posts, and the exact timestamp when the transient cache was last rebuilt.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Bot Manager Section -->
+            <section id="bot-manager">
+                <h2>4. AI Crawler Bot Blocker</h2>
+                <p>The Bot Control panel lets you check or uncheck blocks for popular AI crawlers. These blocks hook
+                    into the WordPress <code>robots_txt</code> filter and append disallow statements safely at the
+                    bottom of the output without altering existing rules generated by other plugins.</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Crawler Agent</th>
+                            <th>Associated Platform</th>
+                            <th>Indexing Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>GPTBot</strong></td>
+                            <td>OpenAI</td>
+                            <td>ChatGPT model training and query answering.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ClaudeBot</strong></td>
+                            <td>Anthropic</td>
+                            <td>Claude LLM assistant model datasets.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>PerplexityBot</strong></td>
+                            <td>Perplexity AI</td>
+                            <td>Conversational search box updates.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Google-Extended</strong></td>
+                            <td>Google</td>
+                            <td>Gemini & Vertex AI models training opt-out.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>CCBot</strong></td>
+                            <td>Common Crawl</td>
+                            <td>Open datasets used by various open-source models.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Amazonbot</strong></td>
+                            <td>Amazon</td>
+                            <td>Alexa features and ML product training.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Applebot-Extended</strong></td>
+                            <td>Apple</td>
+                            <td>Apple Intelligence training opt-out.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- llms.txt Section -->
+            <section id="llms-txt">
+                <h2>5. Dynamic llms.txt Generator</h2>
+                <p>The <code>llms.txt</code> standard provides structured markdown summaries specifically optimized for
+                    LLMs. The plugin dynamically generates this output under the URL
+                    <code>https://yourdomain.com/llms.txt</code>.</p>
+
+                <p>The file structure generated matches this format:</p>
+                <pre><code># Site Name
+
+## About
+Site description details.
+
+## Recent Content
+- [Post Title 1](https://yourdomain.com/post-1/)
+- [Page Title 2](https://yourdomain.com/page-2/)
+...</code></pre>
+
+                <div class="alert alert-info">
+                    <strong>Performance Caching:</strong> To prevent resource usage, the dynamic output is cached using
+                    WordPress transients for up to one week. The cache is automatically cleared whenever you publish,
+                    edit, or trash posts or pages.
+                </div>
+            </section>
+
+            <!-- Referrals Section -->
+            <section id="referrals">
+                <h2>6. AI Referrals Analytics</h2>
+                <p>The plugin tracks incoming visits referred by conversational search engines by parsing the HTTP
+                    Referrer header. It captures referrers from ChatGPT, Perplexity, Claude, Gemini, Copilot, and Bard.
+                </p>
+
+                <h3>Transient Debounce Check</h3>
+                <p>To protect your database from spam and resource usage, the referral logger hashes the visitor's IP
+                    address, requested destination URL, and referrer source. It sets a transient key for <strong>5
+                        minutes</strong>. If the same visitor clicks another link or refreshes the page within this
+                    window, the visit is debounced and not saved to the database.</p>
+
+                <p>You can view top referral sources, top pages visited by AI referrals, and download a CSV file of the
+                    logged spreadsheet from the Tools panel.</p>
+            </section>
+
+            <!-- Troubleshooting Section -->
+            <section id="troubleshooting">
+                <h2>7. Diagnostics & Troubleshooting</h2>
+
+                <div class="card">
+                    <h3>Problem 1: llms.txt returns a 404 Page Not Found error</h3>
+                    <p><strong>Reason:</strong> Your permalink structure is set to "Plain", or WordPress rewrite rules
+                        have not flushed correctly.</p>
+                    <p><strong>Solution:</strong> Navigate to <em>Settings > Permalinks</em>, change the setting to
+                        <em>Post Name</em>, and save. Then go to <em>Settings > AI Visibility Manager > Tools</em> and
+                        click <strong>Rebuild Cache</strong> to flush rules.</p>
+                </div>
+
+                <div class="card">
+                    <h3>Problem 2: robots.txt doesn't show the blocked AI bot rules</h3>
+                    <p><strong>Reason:</strong> You have a physical <code>robots.txt</code> file in your site's root
+                        directory, which prevents WordPress from generating dynamic virtual rules.</p>
+                    <p><strong>Solution:</strong> Connect to your site via FTP or File Manager and delete the physical
+                        <code>robots.txt</code> file from the root folder. WordPress will then handle robots.txt
+                        requests dynamically.</p>
+                </div>
+            </section>
+
+            <!-- Privacy Section -->
+            <section id="privacy">
+                <h2>8. GDPR & Privacy Compliance</h2>
+                <p>This plugin is built with GDPR and user privacy in mind:</p>
+                <ul>
+                    <li>No user tracking data or logs leave your local server.</li>
+                    <li>The plugin does not write raw IP addresses to the database.</li>
+                    <li>IP addresses are hashed using MD5 during the transient check to prevent duplicate logs and are
+                        then discarded.</li>
+                </ul>
+            </section>
+
+            <!-- Developer Section -->
+            <section id="developers">
+                <h2>9. Developer Hooks & Filters</h2>
+                <p>Developers can customize the plugin's behavior using filters:</p>
+
+                <h3>A. Customize llms.txt output</h3>
+                <p>If you want to alter the Dynamic Markdown content before it is output or cached:</p>
+                <pre><code>add_filter( 'aivm_llms_txt_output', 'custom_llms_txt_content' );
+function custom_llms_txt_content( $output ) {
+    // Append custom legal or about info at the bottom
+    $output .= "\n## Custom Index\n- [Terms](https://yoursite.com/terms/)\n";
+    return $output;
+}</code></pre>
+
+                <h3>B. Add custom AI bots to block in robots.txt</h3>
+                <p>To block additional crawlers not listed by default in the free control panel:</p>
+                <pre><code>add_filter( 'aivm_custom_robots_rules', 'add_custom_bots' );
+function add_custom_bots( $rules ) {
+    $rules .= "\nUser-agent: SpecializedBot\nDisallow: /\n";
+    return $rules;
+}</code></pre>
+            </section>
+
+            <footer>
+                <p>&copy; 2026 Techbysh. AI Visibility Manager is open-source software licensed under GPLv2 or later.
+                </p>
+            </footer>
+        </main>
+    </div>
+
+    <script>
+        // Simple Active Menu Highlighting on Scroll
+        document.addEventListener('DOMContentLoaded', function () {
+            const links = document.querySelectorAll('.menu-link');
+            const sections = document.querySelectorAll('section');
+
+            window.addEventListener('scroll', function () {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (pageYOffset >= (sectionTop - 80)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                links.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').substring(1) === current) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
