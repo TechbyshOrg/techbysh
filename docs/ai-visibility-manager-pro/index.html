@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -89,14 +88,11 @@
         }
 
         /* Scrollbar styles for sidebar and pre */
-        .sidebar::-webkit-scrollbar,
-        pre::-webkit-scrollbar {
+        .sidebar::-webkit-scrollbar, pre::-webkit-scrollbar {
             width: 6px;
             height: 6px;
         }
-
-        .sidebar::-webkit-scrollbar-thumb,
-        pre::-webkit-scrollbar-thumb {
+        .sidebar::-webkit-scrollbar-thumb, pre::-webkit-scrollbar-thumb {
             background: var(--scrollbar-thumb);
             border-radius: 3px;
         }
@@ -260,14 +256,14 @@
             background-color: #ffffff;
             transition: .3s;
             border-radius: 50%;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
-        input:checked+.slider {
+        input:checked + .slider {
             background-color: var(--primary);
         }
 
-        input:checked+.slider:before {
+        input:checked + .slider:before {
             transform: translateX(22px);
         }
 
@@ -560,29 +556,13 @@
             line-height: 1.6;
         }
 
-        .token-keyword {
-            color: #f43f5e;
-        }
+        .token-keyword { color: #f43f5e; }
+        .token-string { color: #10b981; }
+        .token-comment { color: #64748b; font-style: italic; }
+        .token-function { color: #3b82f6; }
+        .token-variable { color: #f59e0b; }
 
-        .token-string {
-            color: #10b981;
-        }
-
-        .token-comment {
-            color: #64748b;
-            font-style: italic;
-        }
-
-        .token-function {
-            color: #3b82f6;
-        }
-
-        .token-variable {
-            color: #f59e0b;
-        }
-
-        ul,
-        ol {
+        ul, ol {
             margin-left: 24px;
             margin-bottom: 20px;
             font-size: 14.5px;
@@ -635,25 +615,13 @@
         }
 
         @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         /* Responsiveness */
@@ -665,11 +633,9 @@
                 border-right: none;
                 border-bottom: 1px solid var(--border);
             }
-
             body {
                 flex-direction: column;
             }
-
             .main-content {
                 margin-left: 0;
                 padding: 30px 20px;
@@ -677,21 +643,20 @@
         }
     </style>
 </head>
-
 <body>
 
     <!-- Sidebar Navigation -->
     <aside class="sidebar">
         <div class="logo-area">
+            <img src="logo.svg" alt="Logo" style="width: 32px; height: 32px; filter: drop-shadow(0 2px 8px rgba(139, 92, 246, 0.35));" />
             <span class="logo-badge">PRO</span>
-            <h1>AI Visibility Manager</h1>
+            <h1 style="font-size: 16px;">AI Visibility</h1>
         </div>
 
         <!-- Search Bar -->
         <div class="search-container">
             <svg class="search-icon" viewBox="0 0 24 24">
-                <path
-                    d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
+                <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
             </svg>
             <input type="text" id="search-box" class="search-input" placeholder="Search documentation...">
         </div>
@@ -700,104 +665,61 @@
         <ul class="nav-list" id="nav-links">
             <li>
                 <a href="#welcome" class="nav-link active" data-target="welcome">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                    </svg>
+                    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
                     Welcome
                 </a>
             </li>
             <li>
                 <a href="#architecture" class="nav-link" data-target="architecture">
-                    <svg viewBox="0 0 24 24">
-                        <rect x="3" y="3" width="7" height="9"></rect>
-                        <rect x="14" y="3" width="7" height="5"></rect>
-                        <rect x="14" y="12" width="7" height="9"></rect>
-                        <rect x="3" y="16" width="7" height="5"></rect>
-                    </svg>
+                    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>
                     Architecture & Core
                 </a>
             </li>
             <li>
                 <a href="#firewall" class="nav-link" data-target="firewall">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                    </svg>
+                    <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
                     AI Firewall & Limits
                 </a>
             </li>
             <li>
                 <a href="#llms-txt" class="nav-link" data-target="llms-txt">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                        <polyline points="14 2 14 8 20 8"></polyline>
-                        <line x1="16" y1="13" x2="8" y2="13"></line>
-                        <line x1="16" y1="17" x2="8" y2="17"></line>
-                        <polyline points="10 9 9 9 8 9"></polyline>
-                    </svg>
+                    <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
                     llms.txt Catalogs
                 </a>
             </li>
             <li>
                 <a href="#sitemap" class="nav-link" data-target="sitemap">
-                    <svg viewBox="0 0 24 24">
-                        <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-                        <polyline points="2 17 12 22 22 17"></polyline>
-                        <polyline points="2 12 12 17 22 12"></polyline>
-                    </svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
                     AI XML Sitemap
                 </a>
             </li>
             <li>
                 <a href="#schema" class="nav-link" data-target="schema">
-                    <svg viewBox="0 0 24 24">
-                        <path
-                            d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
-                        </path>
-                        <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-                        <line x1="12" y1="22.08" x2="12" y2="12"></line>
-                    </svg>
+                    <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
                     Entity Graph Builder
                 </a>
             </li>
             <li>
                 <a href="#woocommerce" class="nav-link" data-target="woocommerce">
-                    <svg viewBox="0 0 24 24">
-                        <circle cx="9" cy="21" r="1"></circle>
-                        <circle cx="20" cy="21" r="1"></circle>
-                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                    </svg>
+                    <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
                     Woo Attribution
                 </a>
             </li>
             <li>
                 <a href="#analytics" class="nav-link" data-target="analytics">
-                    <svg viewBox="0 0 24 24">
-                        <line x1="18" y1="20" x2="18" y2="10"></line>
-                        <line x1="12" y1="20" x2="12" y2="4"></line>
-                        <line x1="6" y1="20" x2="6" y2="14"></line>
-                    </svg>
+                    <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
                     Analytics & Reports
                 </a>
             </li>
             <li>
                 <a href="#server-config" class="nav-link" data-target="server-config">
-                    <svg viewBox="0 0 24 24">
-                        <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
-                        <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
-                        <line x1="6" y1="6" x2="6.01" y2="6"></line>
-                        <line x1="6" y1="18" x2="6.01" y2="18"></line>
-                    </svg>
+                    <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
                     Server Configurations
                 </a>
             </li>
             <li>
                 <a href="#faq" class="nav-link" data-target="faq">
-                    <svg viewBox="0 0 24 24">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                    </svg>
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
                     FAQ & Diagnostics
                 </a>
             </li>
@@ -820,48 +742,41 @@
             <img src="hero.png" alt="AI Visibility Manager Pro Hero Graphic">
             <div class="hero-overlay">
                 <span class="version-tag">Production Ready v1.0.0</span>
-                <h2>AI Visibility Manager Pro</h2>
-                <p>Enterprise Integration & Core System Documentation</p>
+                <div style="display: flex; align-items: center; gap: 15px; margin-top: 5px;">
+                    <img src="logo-white.png" alt="Logo" style="width: 52px; height: 52px; border-radius: 10px; filter: drop-shadow(0 2px 10px rgba(255, 255, 255, 0.25)); border: 1.5px solid rgba(255, 255, 255, 0.2);" />
+                    <div>
+                        <h2 style="font-size: 26px; line-height: 1.2; margin: 0; color: #ffffff;">AI Visibility Manager Pro</h2>
+                        <p style="margin: 3px 0 0 0; font-size: 14px; color: #e2e8f0; opacity: 0.9;">Enterprise Integration & Core System Documentation</p>
+                    </div>
+                </div>
             </div>
         </div>
 
         <!-- Section 1: Welcome -->
         <section id="welcome">
             <div class="section-header">
-                <svg viewBox="0 0 24 24">
-                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                </svg>
+                <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
                 <h3>Welcome & Overview</h3>
             </div>
             <p>
-                <strong>AI Visibility Manager Pro</strong> is a standalone, performance-engineered WordPress plugin
-                designed for enterprise-level search engine optimization, bot firewall defense, structured entity
-                linking, and WooCommerce sales attribution in the era of artificial intelligence crawlers.
+                <strong>AI Visibility Manager Pro</strong> is a standalone, performance-engineered WordPress plugin designed for enterprise-level search engine optimization, bot firewall defense, structured entity linking, and WooCommerce sales attribution in the era of artificial intelligence crawlers.
             </p>
             <p>
-                Unlike generic SEO utilities, this plugin is tailored specifically to interface with LLM crawler
-                engines, including OpenAI's <strong>GPTBot</strong>, Anthropic's <strong>ClaudeBot</strong>, and search
-                models from Perplexity, Cohere, Meta, and Google. It provides systems administrators and developers with
-                total control over how artificial intelligence discovers, reads, indexes, and attributes traffic to a
-                WordPress environment.
+                Unlike generic SEO utilities, this plugin is tailored specifically to interface with LLM crawler engines, including OpenAI's <strong>GPTBot</strong>, Anthropic's <strong>ClaudeBot</strong>, and search models from Perplexity, Cohere, Meta, and Google. It provides systems administrators and developers with total control over how artificial intelligence discovers, reads, indexes, and attributes traffic to a WordPress environment.
             </p>
 
             <div class="grid-layout">
                 <div class="card">
                     <div class="card-title">Crawl Control <span>PHP Hook</span></div>
-                    <p class="card-description">Prevent CPU spikes and scrape overload by filtering, rate-limiting, or
-                        challenging search crawlers on initial loading hooks before expensive templates load.</p>
+                    <p class="card-description">Prevent CPU spikes and scrape overload by filtering, rate-limiting, or challenging search crawlers on initial loading hooks before expensive templates load.</p>
                 </div>
                 <div class="card">
                     <div class="card-title">Markdown Export <span>Virtual Router</span></div>
-                    <p class="card-description">Serve custom-cached /llms.txt directories and full-page markdown logs
-                        (/llms-full.txt) specifically structured for training corpus ingestion.</p>
+                    <p class="card-description">Serve custom-cached /llms.txt directories and full-page markdown logs (/llms-full.txt) specifically structured for training corpus ingestion.</p>
                 </div>
                 <div class="card">
                     <div class="card-title">Attribution Engine <span>Cookies</span></div>
-                    <p class="card-description">Track purchase journeys and store visitor paths from AI referral sources
-                        (Perplexity, ChatGPT, Claude) with optimized data structures and database models.</p>
+                    <p class="card-description">Track purchase journeys and store visitor paths from AI referral sources (Perplexity, ChatGPT, Claude) with optimized data structures and database models.</p>
                 </div>
             </div>
         </section>
@@ -869,28 +784,17 @@
         <!-- Section 2: Architecture & Core -->
         <section id="architecture">
             <div class="section-header">
-                <svg viewBox="0 0 24 24">
-                    <rect x="3" y="3" width="7" height="9"></rect>
-                    <rect x="14" y="3" width="7" height="5"></rect>
-                    <rect x="14" y="12" width="7" height="9"></rect>
-                    <rect x="3" y="16" width="7" height="5"></rect>
-                </svg>
+                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>
                 <h3>System Architecture</h3>
             </div>
             <p>
-                The plugin relies on an Object-Oriented singleton architecture (instantiated as
-                <code>AIVM_Pro_Plugin</code>) and implements core hook bindings dynamically. This ensures that the
-                codebase maintains a minimal memory footprint and zero external library dependencies.
+                The plugin relies on an Object-Oriented singleton architecture (instantiated as <code>AIVM_Pro_Plugin</code>) and implements core hook bindings dynamically. This ensures that the codebase maintains a minimal memory footprint and zero external library dependencies.
             </p>
             <div class="callout">
-                <p><strong>GDPR and Privacy Policy:</strong> In compliance with global data privacy requirements, the
-                    plugin never stores raw visitor IP addresses. All incoming request IPs are processed using a secure,
-                    one-way hash algorithm (<code>md5($ip)</code>) prior to database logging or transient generation.
-                </p>
+                <p><strong>GDPR and Privacy Policy:</strong> In compliance with global data privacy requirements, the plugin never stores raw visitor IP addresses. All incoming request IPs are processed using a secure, one-way hash algorithm (<code>md5($ip)</code>) prior to database logging or transient generation.</p>
             </div>
             <p>
-                Database assets are safely isolated via standard WordPress prefix mapping (using
-                <code>$wpdb->prefix</code>), ensuring compatibility with multi-site networks and custom prefixes.
+                Database assets are safely isolated via standard WordPress prefix mapping (using <code>$wpdb->prefix</code>), ensuring compatibility with multi-site networks and custom prefixes.
             </p>
             <div class="table-responsive">
                 <table>
@@ -920,35 +824,25 @@
         <!-- Section 3: AI Firewall & Rate Limiting -->
         <section id="firewall">
             <div class="section-header">
-                <svg viewBox="0 0 24 24">
-                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                </svg>
+                <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
                 <h3>Real-Time AI Firewall & Limits</h3>
             </div>
             <p>
-                The firewall acts at the early <code>plugins_loaded</code> hook, executing before WordPress does
-                template lookups or database routing. This prevents resource starvation when aggressive AI scrapers
-                recursively request pages.
+                The firewall acts at the early <code>plugins_loaded</code> hook, executing before WordPress does template lookups or database routing. This prevents resource starvation when aggressive AI scrapers recursively request pages.
             </p>
             <p>For each recognized crawler, you can apply four distinct policies:</p>
             <ul>
                 <li><strong>Allow:</strong> Passes the request through to the standard rendering pipeline.</li>
                 <li><strong>Block:</strong> Halts execution immediately with a <code>403 Forbidden</code> response.</li>
-                <li><strong>Rate Limit:</strong> Imposes request limits over minute, hour, and day windows. If exceeded,
-                    returns a <code>429 Too Many Requests</code> with a <code>Retry-After: 60</code> header. Limit
-                    counts are stored securely using WordPress Transients.</li>
-                <li><strong>Challenge:</strong> Renders a client-side JavaScript verification screen. Normal browsers
-                    automatically solve the challenge and receive a bypass cookie, while headless scraper scripts are
-                    locked out with a <code>401 Unauthorized</code> response.</li>
+                <li><strong>Rate Limit:</strong> Imposes request limits over minute, hour, and day windows. If exceeded, returns a <code>429 Too Many Requests</code> with a <code>Retry-After: 60</code> header. Limit counts are stored securely using WordPress Transients.</li>
+                <li><strong>Challenge:</strong> Renders a client-side JavaScript verification screen. Normal browsers automatically solve the challenge and receive a bypass cookie, while headless scraper scripts are locked out with a <code>401 Unauthorized</code> response.</li>
             </ul>
 
             <div class="challenge-simulator">
                 <div class="sim-spinner"></div>
                 <h4>Verifying your browser...</h4>
-                <p style="color: #94a3b8; font-size: 13.5px;">Your user agent was flagged as GPTBot. Please verify you
-                    are human to continue accessing the site.</p>
-                <a href="#" class="sim-btn" onclick="alert('Challenge Verification Solved!'); return false;">Verify and
-                    Proceed</a>
+                <p style="color: #94a3b8; font-size: 13.5px;">Your user agent was flagged as GPTBot. Please verify you are human to continue accessing the site.</p>
+                <a href="#" class="sim-btn" onclick="alert('Challenge Verification Solved!'); return false;">Verify and Proceed</a>
             </div>
 
             <div class="table-responsive">
@@ -961,51 +855,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td><code>gptbot</code></td>
-                            <td>GPTBot</td>
-                            <td>Allow</td>
-                        </tr>
-                        <tr>
-                            <td><code>claudebot</code></td>
-                            <td>ClaudeBot</td>
-                            <td>Allow</td>
-                        </tr>
-                        <tr>
-                            <td><code>perplexitybot</code></td>
-                            <td>PerplexityBot</td>
-                            <td>Allow</td>
-                        </tr>
-                        <tr>
-                            <td><code>ccbot</code></td>
-                            <td>CCBot</td>
-                            <td>Block</td>
-                        </tr>
-                        <tr>
-                            <td><code>omgilibot</code></td>
-                            <td>Omgilibot</td>
-                            <td>Block</td>
-                        </tr>
-                        <tr>
-                            <td><code>bytespider</code></td>
-                            <td>Bytespider</td>
-                            <td>Block</td>
-                        </tr>
-                        <tr>
-                            <td><code>amazonbot</code></td>
-                            <td>Amazonbot</td>
-                            <td>Allow</td>
-                        </tr>
-                        <tr>
-                            <td><code>facebookbot</code></td>
-                            <td>FacebookBot</td>
-                            <td>Allow</td>
-                        </tr>
-                        <tr>
-                            <td><code>google-extended</code></td>
-                            <td>Google-Extended</td>
-                            <td>Allow</td>
-                        </tr>
+                        <tr><td><code>gptbot</code></td><td>GPTBot</td><td>Allow</td></tr>
+                        <tr><td><code>claudebot</code></td><td>ClaudeBot</td><td>Allow</td></tr>
+                        <tr><td><code>perplexitybot</code></td><td>PerplexityBot</td><td>Allow</td></tr>
+                        <tr><td><code>ccbot</code></td><td>CCBot</td><td>Block</td></tr>
+                        <tr><td><code>omgilibot</code></td><td>Omgilibot</td><td>Block</td></tr>
+                        <tr><td><code>bytespider</code></td><td>Bytespider</td><td>Block</td></tr>
+                        <tr><td><code>amazonbot</code></td><td>Amazonbot</td><td>Allow</td></tr>
+                        <tr><td><code>facebookbot</code></td><td>FacebookBot</td><td>Allow</td></tr>
+                        <tr><td><code>google-extended</code></td><td>Google-Extended</td><td>Allow</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -1014,28 +872,18 @@
         <!-- Section 4: llms.txt & llms-full.txt Routing -->
         <section id="llms-txt">
             <div class="section-header">
-                <svg viewBox="0 0 24 24">
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                    <polyline points="14 2 14 8 20 8"></polyline>
-                    <line x1="16" y1="13" x2="8" y2="13"></line>
-                    <line x1="16" y1="17" x2="8" y2="17"></line>
-                    <polyline points="10 9 9 9 8 9"></polyline>
-                </svg>
+                <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
                 <h3>llms.txt & llms-full.txt Catalogs</h3>
             </div>
             <p>
-                To allow search indexers and AI agents to quickly summarize your site structure and parse content, the
-                plugin registers virtual rewrite routes to serve markdown files:
+                To allow search indexers and AI agents to quickly summarize your site structure and parse content, the plugin registers virtual rewrite routes to serve markdown files:
             </p>
             <ul>
-                <li><strong>/llms.txt:</strong> Displays a high-level site summary followed by a clean markdown list
-                    containing up to 250 of the most recently published URLs.</li>
-                <li><strong>/llms-full.txt:</strong> Builds a combined, lightweight document exporting full posts,
-                    pages, and products in a clean, human-readable markdown format.</li>
+                <li><strong>/llms.txt:</strong> Displays a high-level site summary followed by a clean markdown list containing up to 250 of the most recently published URLs.</li>
+                <li><strong>/llms-full.txt:</strong> Builds a combined, lightweight document exporting full posts, pages, and products in a clean, human-readable markdown format.</li>
             </ul>
             <p>
-                The parsing pipeline converts complex HTML pages into clean markdown elements dynamically using regex
-                replacement patterns, removing scripts, block comments, and custom HTML attributes.
+                The parsing pipeline converts complex HTML pages into clean markdown elements dynamically using regex replacement patterns, removing scripts, block comments, and custom HTML attributes.
             </p>
 
             <div class="code-container">
@@ -1061,55 +909,37 @@
 }</code></pre>
             </div>
             <div class="callout callout-warning">
-                <p><strong>Performance Notice:</strong> Content caching is highly recommended. Set the cache duration
-                    setting (<code>aivmp_llms_cache_duration</code>) to keep the generated markdown cached in
-                    transients. This avoids reprocessing heavy queries on concurrent visits.</p>
+                <p><strong>Performance Notice:</strong> Content caching is highly recommended. Set the cache duration setting (<code>aivmp_llms_cache_duration</code>) to keep the generated markdown cached in transients. This avoids reprocessing heavy queries on concurrent visits.</p>
             </div>
         </section>
 
         <!-- Section 5: AI XML Sitemap -->
         <section id="sitemap">
             <div class="section-header">
-                <svg viewBox="0 0 24 24">
-                    <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-                    <polyline points="2 17 12 22 22 17"></polyline>
-                    <polyline points="2 12 12 17 22 12"></polyline>
-                </svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
                 <h3>AI XML Sitemap</h3>
             </div>
             <p>
-                In addition to markdown indexes, the plugin publishes a virtual index map at
-                <code>/ai-sitemap.xml</code>. This sitemap aggregates site content metadata and organizes links for
-                rapid crawler indexing.
+                In addition to markdown indexes, the plugin publishes a virtual index map at <code>/ai-sitemap.xml</code>. This sitemap aggregates site content metadata and organizes links for rapid crawler indexing.
             </p>
             <p>The sitemap engine automatically queries and structures the following elements:</p>
             <ul>
                 <li><strong>Core Content:</strong> Singular posts and pages with last modified timestamps.</li>
-                <li><strong>WooCommerce Integration:</strong> Appends products with tailored crawl priorities
-                    (<code>0.8</code>) and update frequencies.</li>
+                <li><strong>WooCommerce Integration:</strong> Appends products with tailored crawl priorities (<code>0.8</code>) and update frequencies.</li>
                 <li><strong>Taxonomy Terms:</strong> Catalogs categories, tags, and product categories.</li>
                 <li><strong>Authors:</strong> Lists profile archive routes for content publishers on the platform.</li>
             </ul>
-            <p>To prevent database lockups during concurrent crawls, sitemap results are compressed and stored in the
-                <code>aivmp_sitemap_cache</code> transient for 24 hours.</p>
+            <p>To prevent database lockups during concurrent crawls, sitemap results are compressed and stored in the <code>aivmp_sitemap_cache</code> transient for 24 hours.</p>
         </section>
 
         <!-- Section 6: JSON-LD Entity Graph -->
         <section id="schema">
             <div class="section-header">
-                <svg viewBox="0 0 24 24">
-                    <path
-                        d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
-                    </path>
-                    <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-                    <line x1="12" y1="22.08" x2="12" y2="12"></line>
-                </svg>
+                <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
                 <h3>JSON-LD Entity Graph Builder</h3>
             </div>
             <p>
-                Search algorithms rely on relational data to link entities (such as organizations, authors, articles,
-                and products) together. The schema engine builds a relational <code>@graph</code> block injected into
-                the site's head template.
+                Search algorithms rely on relational data to link entities (such as organizations, authors, articles, and products) together. The schema engine builds a relational <code>@graph</code> block injected into the site's head template.
             </p>
             <div class="code-container">
                 <div class="code-header">
@@ -1139,39 +969,27 @@
 }</code></pre>
             </div>
             <p>
-                <strong>Yoast & Rank Math Compatibility:</strong> When compatibility mode is enabled, the plugin hooks
-                directly into <code>wpseo_schema_graph</code> and <code>rank_math/json_ld</code> filters. Instead of
-                rendering a duplicate script tag, it merges its entities seamlessly into the existing SEO graph.
+                <strong>Yoast & Rank Math Compatibility:</strong> When compatibility mode is enabled, the plugin hooks directly into <code>wpseo_schema_graph</code> and <code>rank_math/json_ld</code> filters. Instead of rendering a duplicate script tag, it merges its entities seamlessly into the existing SEO graph.
             </p>
         </section>
 
         <!-- Section 7: WooCommerce Attribution -->
         <section id="woocommerce">
             <div class="section-header">
-                <svg viewBox="0 0 24 24">
-                    <circle cx="9" cy="21" r="1"></circle>
-                    <circle cx="20" cy="21" r="1"></circle>
-                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                </svg>
+                <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
                 <h3>WooCommerce AI Attribution</h3>
             </div>
             <p>
-                The attribution module monitors incoming referrals to track customers originating from AI platforms. It
-                records paths and calculates conversion value on checkout.
+                The attribution module monitors incoming referrals to track customers originating from AI platforms. It records paths and calculates conversion value on checkout.
             </p>
             <div class="callout">
-                <p><strong>Tracking Strategy:</strong> The customer landing page and referring source are kept in active
-                    PHP sessions and cookie variables (<code>aivmp_wc_referrer</code> and
-                    <code>aivmp_wc_landing_page</code>). The customer’s relative browsing history is stored in a cookie
-                    array limited to 15 entries to prevent cookie header size overflow.</p>
+                <p><strong>Tracking Strategy:</strong> The customer landing page and referring source are kept in active PHP sessions and cookie variables (<code>aivmp_wc_referrer</code> and <code>aivmp_wc_landing_page</code>). The customer’s relative browsing history is stored in a cookie array limited to 15 entries to prevent cookie header size overflow.</p>
             </div>
             <p>
-                When a customer completes an order, the <code>woocommerce_checkout_order_processed</code> hook captures
-                the transaction details and persists them inside the <code>wp_aivmp_wc_attribution</code> table:
+                When a customer completes an order, the <code>woocommerce_checkout_order_processed</code> hook captures the transaction details and persists them inside the <code>wp_aivmp_wc_attribution</code> table:
             </p>
             <ul>
-                <li><strong>Referrer:</strong> The matched AI search platform (ChatGPT, Perplexity, Claude, Gemini,
-                    etc.).</li>
+                <li><strong>Referrer:</strong> The matched AI search platform (ChatGPT, Perplexity, Claude, Gemini, etc.).</li>
                 <li><strong>Landing URL:</strong> The customer entry point on the website.</li>
                 <li><strong>Order Total:</strong> Total cart value, including tax and shipping.</li>
                 <li><strong>Journey Log:</strong> List of relative pages visited before checking out.</li>
@@ -1181,46 +999,28 @@
         <!-- Section 8: Analytics & Advanced Reports -->
         <section id="analytics">
             <div class="section-header">
-                <svg viewBox="0 0 24 24">
-                    <line x1="18" y1="20" x2="18" y2="10"></line>
-                    <line x1="12" y1="20" x2="12" y2="4"></line>
-                    <line x1="6" y1="20" x2="6" y2="14"></line>
-                </svg>
+                <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
                 <h3>Analytics, Reports & Cron</h3>
             </div>
             <p>
-                Admin dashboard interfaces display interactive crawl metrics, block tallies, and sales referral trends.
-                The charts are powered by a localized version of <strong>Chart.js v3.9.1</strong>, keeping all asset
-                loads offline and GDPR-compliant.
+                Admin dashboard interfaces display interactive crawl metrics, block tallies, and sales referral trends. The charts are powered by a localized version of <strong>Chart.js v3.9.1</strong>, keeping all asset loads offline and GDPR-compliant.
             </p>
             <p>
-                <strong>Scheduled Executive Reports:</strong> If enabled, a WordPress cron hook
-                (<code>aivmp_send_scheduled_reports</code>) triggers on a regular interval (daily, weekly, or monthly)
-                to compile traffic analytics, sales conversions, and source distributions, emailing them to the
-                configured administrator address.
+                <strong>Scheduled Executive Reports:</strong> If enabled, a WordPress cron hook (<code>aivmp_send_scheduled_reports</code>) triggers on a regular interval (daily, weekly, or monthly) to compile traffic analytics, sales conversions, and source distributions, emailing them to the configured administrator address.
             </p>
             <p>
-                <strong>Exporting Data:</strong> Developers and managers can navigate to the Tools tab to run manual
-                reporting. The plugin generates structured <code>CSV</code> dumps of database records or triggers
-                print-ready <code>HTML-to-PDF</code> styled stylesheets for executive presentations.
+                <strong>Exporting Data:</strong> Developers and managers can navigate to the Tools tab to run manual reporting. The plugin generates structured <code>CSV</code> dumps of database records or triggers print-ready <code>HTML-to-PDF</code> styled stylesheets for executive presentations.
             </p>
         </section>
 
         <!-- Section 9: Server Configurations -->
         <section id="server-config">
             <div class="section-header">
-                <svg viewBox="0 0 24 24">
-                    <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
-                    <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
-                    <line x1="6" y1="6" x2="6.01" y2="6"></line>
-                    <line x1="6" y1="18" x2="6.01" y2="18"></line>
-                </svg>
+                <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
                 <h3>Server Configurations & Rewrites</h3>
             </div>
             <p>
-                WordPress handles virtual routes automatically by appending rules to the <code>.htaccess</code>
-                configuration on Apache servers. However, on custom stacks or Nginx environments, manual directives may
-                be required.
+                WordPress handles virtual routes automatically by appending rules to the <code>.htaccess</code> configuration on Apache servers. However, on custom stacks or Nginx environments, manual directives may be required.
             </p>
 
             <div class="code-container">
@@ -1257,44 +1057,28 @@ RewriteRule ^ai-sitemap\.xml$ index.php?aivmp_sitemap=1 [L,QSA]
         <!-- Section 10: FAQ & Diagnostics -->
         <section id="faq">
             <div class="section-header">
-                <svg viewBox="0 0 24 24">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                </svg>
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
                 <h3>FAQ & Diagnostics</h3>
             </div>
-
-            <h4 style="margin: 20px 0 8px 0; font-size: 16px;">Q: The virtual routes (/llms.txt, /ai-sitemap.xml) are
-                returning 404 errors.</h4>
+            
+            <h4 style="margin: 20px 0 8px 0; font-size: 16px;">Q: The virtual routes (/llms.txt, /ai-sitemap.xml) are returning 404 errors.</h4>
             <p>
-                A: This typically indicates that rewrite rules have not been flushed. Go to <strong>Settings >
-                    Permalinks</strong> in the WordPress dashboard and click <strong>Save Changes</strong>. This
-                triggers a core rewrite rules rebuild. Also, ensure your site does not use plain permalinks (e.g.
-                <code>?p=123</code>).
+                A: This typically indicates that rewrite rules have not been flushed. Go to <strong>Settings > Permalinks</strong> in the WordPress dashboard and click <strong>Save Changes</strong>. This triggers a core rewrite rules rebuild. Also, ensure your site does not use plain permalinks (e.g. <code>?p=123</code>).
             </p>
 
-            <h4 style="margin: 20px 0 8px 0; font-size: 16px;">Q: Does the firewall restrict standard Search Engine
-                crawlers like Googlebot or Bingbot?</h4>
+            <h4 style="margin: 20px 0 8px 0; font-size: 16px;">Q: Does the firewall restrict standard Search Engine crawlers like Googlebot or Bingbot?</h4>
             <p>
-                A: No. The firewall strictly maps specifically flagged AI-centric agents (such as <code>GPTBot</code>,
-                <code>ClaudeBot</code>, and <code>CCBot</code>). General web crawlers used for standard search result
-                listings are not affected by default.
+                A: No. The firewall strictly maps specifically flagged AI-centric agents (such as <code>GPTBot</code>, <code>ClaudeBot</code>, and <code>CCBot</code>). General web crawlers used for standard search result listings are not affected by default.
             </p>
 
-            <h4 style="margin: 20px 0 8px 0; font-size: 16px;">Q: How can I manually trigger a rebuild of cached
-                sitemaps or markdown catalogs?</h4>
+            <h4 style="margin: 20px 0 8px 0; font-size: 16px;">Q: How can I manually trigger a rebuild of cached sitemaps or markdown catalogs?</h4>
             <p>
-                A: The cache is flushed automatically whenever posts are updated or saved. To manually clear the cache,
-                go to the <strong>Status</strong> tab in the plugin settings and click the <strong>Flush Transients
-                    Cache</strong> button.
+                A: The cache is flushed automatically whenever posts are updated or saved. To manually clear the cache, go to the <strong>Status</strong> tab in the plugin settings and click the <strong>Flush Transients Cache</strong> button.
             </p>
 
             <h4 style="margin: 20px 0 8px 0; font-size: 16px;">Q: Where are the local scripts loaded from?</h4>
             <p>
-                A: To maintain compliance with WordPress.org guidelines regarding data leakage and CDNs, Chart.js is
-                bundled locally inside <code>/admin/js/chart.min.js</code>. No remote scripts or styles are requested
-                during operation.
+                A: To maintain compliance with WordPress.org guidelines regarding data leakage and CDNs, Chart.js is bundled locally inside <code>/admin/js/chart.min.js</code>. No remote scripts or styles are requested during operation.
             </p>
         </section>
     </main>
@@ -1305,7 +1089,7 @@ RewriteRule ^ai-sitemap\.xml$ index.php?aivmp_sitemap=1 [L,QSA]
         const sections = document.querySelectorAll('main section');
         const navLinksList = document.querySelectorAll('#nav-links .nav-link');
 
-        searchBox.addEventListener('input', function (e) {
+        searchBox.addEventListener('input', function(e) {
             const query = e.target.value.toLowerCase().trim();
 
             sections.forEach(section => {
@@ -1314,7 +1098,7 @@ RewriteRule ^ai-sitemap\.xml$ index.php?aivmp_sitemap=1 [L,QSA]
 
                 if (matched) {
                     section.style.display = 'block';
-
+                    
                     // Highlight query terms within paragraphs and headings
                     if (query.length > 2) {
                         removeHighlights(section);
@@ -1326,7 +1110,7 @@ RewriteRule ^ai-sitemap\.xml$ index.php?aivmp_sitemap=1 [L,QSA]
                     section.style.display = 'none';
                 }
             });
-
+            
             // Adjust active nav item visibility
             navLinksList.forEach(link => {
                 const targetId = link.getAttribute('data-target');
@@ -1342,12 +1126,12 @@ RewriteRule ^ai-sitemap\.xml$ index.php?aivmp_sitemap=1 [L,QSA]
         function applyHighlights(root, word) {
             const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false);
             const nodes = [];
-            while (walker.nextNode()) {
+            while(walker.nextNode()) {
                 if (walker.currentNode.parentNode.tagName !== 'CODE' && walker.currentNode.parentNode.tagName !== 'SPAN') {
                     nodes.push(walker.currentNode);
                 }
             }
-
+            
             nodes.forEach(node => {
                 const text = node.nodeValue;
                 const lowerText = text.toLowerCase();
@@ -1355,20 +1139,20 @@ RewriteRule ^ai-sitemap\.xml$ index.php?aivmp_sitemap=1 [L,QSA]
                 if (index !== -1) {
                     const span = document.createElement('span');
                     span.className = 'highlight-container';
-
+                    
                     const before = text.substring(0, index);
                     const match = text.substring(index, index + word.length);
                     const after = text.substring(index + word.length);
-
+                    
                     const beforeNode = document.createTextNode(before);
                     const markNode = document.createElement('mark');
                     markNode.appendChild(document.createTextNode(match));
                     const afterNode = document.createTextNode(after);
-
+                    
                     span.appendChild(beforeNode);
                     span.appendChild(markNode);
                     span.appendChild(afterNode);
-
+                    
                     node.parentNode.replaceChild(span, node);
                 }
             });
@@ -1387,7 +1171,7 @@ RewriteRule ^ai-sitemap\.xml$ index.php?aivmp_sitemap=1 [L,QSA]
 
         // Copy-to-clipboard functionality
         document.querySelectorAll('.copy-btn').forEach(btn => {
-            btn.addEventListener('click', function () {
+            btn.addEventListener('click', function() {
                 const container = this.closest('.code-container');
                 const codeElement = container.querySelector('code');
                 const rawText = codeElement.innerText;
@@ -1432,18 +1216,17 @@ RewriteRule ^ai-sitemap\.xml$ index.php?aivmp_sitemap=1 [L,QSA]
 
         // Light/Dark Theme Switcher
         const themeSwitcher = document.getElementById('theme-switcher');
-
+        
         // Load initial theme selection
         const storedTheme = localStorage.getItem('aivmp_docs_theme') || 'dark';
         document.documentElement.setAttribute('data-theme', storedTheme);
         themeSwitcher.checked = (storedTheme === 'dark');
 
-        themeSwitcher.addEventListener('change', function () {
+        themeSwitcher.addEventListener('change', function() {
             const newTheme = this.checked ? 'dark' : 'light';
             document.documentElement.setAttribute('data-theme', newTheme);
             localStorage.setItem('aivmp_docs_theme', newTheme);
         });
     </script>
 </body>
-
 </html>
