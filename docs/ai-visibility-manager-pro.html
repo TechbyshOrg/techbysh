@@ -1,0 +1,1449 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Visibility Manager Pro — Technical Documentation</title>
+    <style>
+        /* Modern CSS Variables & Resets */
+        :root[data-theme="dark"] {
+            --bg-body: #0b0f19;
+            --bg-sidebar: #070a13;
+            --bg-card: #131a2c;
+            --bg-card-hover: #192239;
+            --border: rgba(255, 255, 255, 0.08);
+            --border-hover: rgba(255, 255, 255, 0.16);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --code-bg: #070a13;
+            --primary: #8b5cf6;
+            --primary-rgb: 139, 92, 246;
+            --primary-hover: #a78bfa;
+            --accent: #06b6d4;
+            --accent-glow: rgba(6, 182, 212, 0.15);
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+            --scrollbar-thumb: #1e293b;
+        }
+
+        :root[data-theme="light"] {
+            --bg-body: #f8fafc;
+            --bg-sidebar: #ffffff;
+            --bg-card: #ffffff;
+            --bg-card-hover: #f1f5f9;
+            --border: rgba(15, 23, 42, 0.08);
+            --border-hover: rgba(15, 23, 42, 0.15);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #64748b;
+            --code-bg: #f8fafc;
+            --primary: #6366f1;
+            --primary-rgb: 99, 102, 241;
+            --primary-hover: #4f46e5;
+            --accent: #0891b2;
+            --accent-glow: rgba(8, 145, 178, 0.1);
+            --success: #059669;
+            --warning: #d97706;
+            --danger: #dc2626;
+            --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
+            --scrollbar-thumb: #cbd5e1;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-primary);
+            display: flex;
+            min-height: 100vh;
+            line-height: 1.65;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            width: 300px;
+            background-color: var(--bg-sidebar);
+            border-right: 1px solid var(--border);
+            padding: 24px 20px;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            z-index: 100;
+            transition: background-color 0.3s ease, border-right 0.3s ease;
+        }
+
+        /* Scrollbar styles for sidebar and pre */
+        .sidebar::-webkit-scrollbar,
+        pre::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb,
+        pre::-webkit-scrollbar-thumb {
+            background: var(--scrollbar-thumb);
+            border-radius: 3px;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo-badge {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 14px;
+            padding: 6px 12px;
+            border-radius: 8px;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 12px rgba(var(--primary-rgb), 0.3);
+        }
+
+        .logo-area h1 {
+            font-size: 18px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Search input styling */
+        .search-container {
+            position: relative;
+            margin-bottom: 10px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px 14px 10px 38px;
+            background-color: var(--bg-body);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 14px;
+            transition: all 0.25s ease;
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.15);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 16px;
+            fill: var(--text-muted);
+            pointer-events: none;
+        }
+
+        .nav-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .nav-item {
+            margin: 0;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-link svg {
+            width: 18px;
+            height: 18px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: stroke 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--text-primary);
+            background-color: var(--bg-card-hover);
+        }
+
+        .nav-link.active {
+            color: #ffffff !important;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+            box-shadow: 0 4px 15px -3px rgba(var(--primary-rgb), 0.4);
+        }
+
+        /* Theme Toggle styles */
+        .theme-toggle-container {
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .theme-toggle-label {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 46px;
+            height: 24px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--border-hover);
+            transition: .3s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: #ffffff;
+            transition: .3s;
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        input:checked+.slider {
+            background-color: var(--primary);
+        }
+
+        input:checked+.slider:before {
+            transform: translateX(22px);
+        }
+
+        /* Main Content Styling */
+        .main-content {
+            margin-left: 300px;
+            flex: 1;
+            padding: 50px 60px;
+            max-width: 1100px;
+            transition: margin-left 0.3s ease, padding 0.3s ease;
+        }
+
+        .hero-banner {
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 40px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        .hero-banner img {
+            width: 100%;
+            height: auto;
+            max-height: 280px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .hero-overlay {
+            padding: 30px;
+            background: linear-gradient(180deg, rgba(11, 15, 25, 0.4) 0%, rgba(11, 15, 25, 0.95) 100%);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .hero-overlay h2 {
+            font-size: 28px;
+            font-weight: 800;
+            color: #ffffff;
+            margin: 0;
+            letter-spacing: -0.5px;
+        }
+
+        .hero-overlay p {
+            font-size: 15px;
+            color: #e2e8f0;
+            margin: 0;
+        }
+
+        .version-tag {
+            align-self: flex-start;
+            background-color: rgba(6, 182, 212, 0.2);
+            color: #22d3ee;
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            font-size: 12px;
+            font-weight: 600;
+            padding: 2px 10px;
+            border-radius: 12px;
+        }
+
+        section {
+            margin-bottom: 60px;
+            scroll-margin-top: 40px;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 12px;
+        }
+
+        .section-header svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--primary);
+            fill: none;
+            stroke-width: 2.2;
+        }
+
+        h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            line-height: 1.75;
+        }
+
+        /* Custom alert styles */
+        .callout {
+            background-color: rgba(var(--primary-rgb), 0.05);
+            border-left: 4px solid var(--primary);
+            padding: 18px 24px;
+            border-radius: 0 12px 12px 0;
+            margin: 25px 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+        }
+
+        .callout p {
+            margin-bottom: 0;
+            font-size: 14.5px;
+            color: var(--text-secondary);
+        }
+
+        .callout strong {
+            color: var(--text-primary);
+        }
+
+        .callout-warning {
+            background-color: rgba(245, 158, 11, 0.05);
+            border-left-color: var(--warning);
+        }
+
+        .callout-warning strong {
+            color: var(--warning);
+        }
+
+        /* Cards grid */
+        .grid-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            border-color: var(--border-hover);
+            box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.15);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--accent));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-title span {
+            background-color: var(--code-bg);
+            border: 1px solid var(--border);
+            font-size: 11px;
+            font-family: monospace;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: var(--accent);
+        }
+
+        .card-description {
+            font-size: 13.5px;
+            color: var(--text-secondary);
+            margin-bottom: 0;
+            line-height: 1.6;
+        }
+
+        /* Table design */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin: 25px 0;
+            box-shadow: var(--shadow);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        th {
+            background-color: var(--bg-card);
+            color: var(--text-primary);
+            font-weight: 600;
+            padding: 14px 18px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        td {
+            padding: 14px 18px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background-color: var(--bg-card-hover);
+        }
+
+        /* Code block container with copy button */
+        .code-container {
+            position: relative;
+            margin: 25px 0;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 16px;
+            background-color: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+            font-size: 12px;
+            font-family: monospace;
+            color: var(--text-muted);
+        }
+
+        .copy-btn {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            padding: 4px 10px;
+            font-size: 11px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: system-ui, sans-serif;
+        }
+
+        .copy-btn:hover {
+            color: var(--text-primary);
+            border-color: var(--border-hover);
+            background-color: var(--bg-card-hover);
+        }
+
+        pre {
+            background-color: var(--code-bg);
+            padding: 20px;
+            margin: 0;
+            overflow-x: auto;
+        }
+
+        code {
+            font-family: Consolas, "Andale Mono WT", "Andale Mono", Monaco, "Courier New", monospace;
+            font-size: 13px;
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .token-keyword {
+            color: #f43f5e;
+        }
+
+        .token-string {
+            color: #10b981;
+        }
+
+        .token-comment {
+            color: #64748b;
+            font-style: italic;
+        }
+
+        .token-function {
+            color: #3b82f6;
+        }
+
+        .token-variable {
+            color: #f59e0b;
+        }
+
+        ul,
+        ol {
+            margin-left: 24px;
+            margin-bottom: 20px;
+            font-size: 14.5px;
+            color: var(--text-secondary);
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        /* Highlighting search terms */
+        mark {
+            background-color: rgba(253, 224, 71, 0.4);
+            color: inherit;
+            padding: 1px 3px;
+            border-radius: 3px;
+        }
+
+        /* Verification Screen Simulator */
+        .challenge-simulator {
+            background: radial-gradient(circle at top right, #1e1b4b 0%, #090514 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            color: #ffffff;
+            margin: 25px 0;
+        }
+
+        .sim-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top-color: #6366f1;
+            border-radius: 50%;
+            animation: spin 1s infinite linear;
+            margin: 0 auto 20px auto;
+        }
+
+        .sim-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 10px 22px;
+            border-radius: 8px;
+            text-decoration: none;
+            box-shadow: 0 8px 16px -4px rgba(99, 102, 241, 0.4);
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsiveness */
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+
+            body {
+                flex-direction: column;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+        <div class="logo-area">
+            <span class="logo-badge">PRO</span>
+            <h1>AI Visibility Manager</h1>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="search-container">
+            <svg class="search-icon" viewBox="0 0 24 24">
+                <path
+                    d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
+            </svg>
+            <input type="text" id="search-box" class="search-input" placeholder="Search documentation...">
+        </div>
+
+        <!-- Navigation Links -->
+        <ul class="nav-list" id="nav-links">
+            <li>
+                <a href="#welcome" class="nav-link active" data-target="welcome">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                    Welcome
+                </a>
+            </li>
+            <li>
+                <a href="#architecture" class="nav-link" data-target="architecture">
+                    <svg viewBox="0 0 24 24">
+                        <rect x="3" y="3" width="7" height="9"></rect>
+                        <rect x="14" y="3" width="7" height="5"></rect>
+                        <rect x="14" y="12" width="7" height="9"></rect>
+                        <rect x="3" y="16" width="7" height="5"></rect>
+                    </svg>
+                    Architecture & Core
+                </a>
+            </li>
+            <li>
+                <a href="#firewall" class="nav-link" data-target="firewall">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    </svg>
+                    AI Firewall & Limits
+                </a>
+            </li>
+            <li>
+                <a href="#llms-txt" class="nav-link" data-target="llms-txt">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                        <polyline points="10 9 9 9 8 9"></polyline>
+                    </svg>
+                    llms.txt Catalogs
+                </a>
+            </li>
+            <li>
+                <a href="#sitemap" class="nav-link" data-target="sitemap">
+                    <svg viewBox="0 0 24 24">
+                        <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                        <polyline points="2 17 12 22 22 17"></polyline>
+                        <polyline points="2 12 12 17 22 12"></polyline>
+                    </svg>
+                    AI XML Sitemap
+                </a>
+            </li>
+            <li>
+                <a href="#schema" class="nav-link" data-target="schema">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
+                        </path>
+                        <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                        <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                    </svg>
+                    Entity Graph Builder
+                </a>
+            </li>
+            <li>
+                <a href="#woocommerce" class="nav-link" data-target="woocommerce">
+                    <svg viewBox="0 0 24 24">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    Woo Attribution
+                </a>
+            </li>
+            <li>
+                <a href="#analytics" class="nav-link" data-target="analytics">
+                    <svg viewBox="0 0 24 24">
+                        <line x1="18" y1="20" x2="18" y2="10"></line>
+                        <line x1="12" y1="20" x2="12" y2="4"></line>
+                        <line x1="6" y1="20" x2="6" y2="14"></line>
+                    </svg>
+                    Analytics & Reports
+                </a>
+            </li>
+            <li>
+                <a href="#server-config" class="nav-link" data-target="server-config">
+                    <svg viewBox="0 0 24 24">
+                        <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+                        <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+                        <line x1="6" y1="6" x2="6.01" y2="6"></line>
+                        <line x1="6" y1="18" x2="6.01" y2="18"></line>
+                    </svg>
+                    Server Configurations
+                </a>
+            </li>
+            <li>
+                <a href="#faq" class="nav-link" data-target="faq">
+                    <svg viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                    </svg>
+                    FAQ & Diagnostics
+                </a>
+            </li>
+        </ul>
+
+        <!-- Theme Toggle Switch -->
+        <div class="theme-toggle-container">
+            <span class="theme-toggle-label">Dark Interface</span>
+            <label class="toggle-switch">
+                <input type="checkbox" id="theme-switcher" checked>
+                <span class="slider"></span>
+            </label>
+        </div>
+    </aside>
+
+    <!-- Main Content Panel -->
+    <main class="main-content">
+        <!-- Hero Header -->
+        <div class="hero-banner">
+            <img src="hero.png" alt="AI Visibility Manager Pro Hero Graphic">
+            <div class="hero-overlay">
+                <span class="version-tag">Production Ready v1.0.0</span>
+                <h2>AI Visibility Manager Pro</h2>
+                <p>Enterprise Integration & Core System Documentation</p>
+            </div>
+        </div>
+
+        <!-- Section 1: Welcome -->
+        <section id="welcome">
+            <div class="section-header">
+                <svg viewBox="0 0 24 24">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                <h3>Welcome & Overview</h3>
+            </div>
+            <p>
+                <strong>AI Visibility Manager Pro</strong> is a standalone, performance-engineered WordPress plugin
+                designed for enterprise-level search engine optimization, bot firewall defense, structured entity
+                linking, and WooCommerce sales attribution in the era of artificial intelligence crawlers.
+            </p>
+            <p>
+                Unlike generic SEO utilities, this plugin is tailored specifically to interface with LLM crawler
+                engines, including OpenAI's <strong>GPTBot</strong>, Anthropic's <strong>ClaudeBot</strong>, and search
+                models from Perplexity, Cohere, Meta, and Google. It provides systems administrators and developers with
+                total control over how artificial intelligence discovers, reads, indexes, and attributes traffic to a
+                WordPress environment.
+            </p>
+
+            <div class="grid-layout">
+                <div class="card">
+                    <div class="card-title">Crawl Control <span>PHP Hook</span></div>
+                    <p class="card-description">Prevent CPU spikes and scrape overload by filtering, rate-limiting, or
+                        challenging search crawlers on initial loading hooks before expensive templates load.</p>
+                </div>
+                <div class="card">
+                    <div class="card-title">Markdown Export <span>Virtual Router</span></div>
+                    <p class="card-description">Serve custom-cached /llms.txt directories and full-page markdown logs
+                        (/llms-full.txt) specifically structured for training corpus ingestion.</p>
+                </div>
+                <div class="card">
+                    <div class="card-title">Attribution Engine <span>Cookies</span></div>
+                    <p class="card-description">Track purchase journeys and store visitor paths from AI referral sources
+                        (Perplexity, ChatGPT, Claude) with optimized data structures and database models.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Architecture & Core -->
+        <section id="architecture">
+            <div class="section-header">
+                <svg viewBox="0 0 24 24">
+                    <rect x="3" y="3" width="7" height="9"></rect>
+                    <rect x="14" y="3" width="7" height="5"></rect>
+                    <rect x="14" y="12" width="7" height="9"></rect>
+                    <rect x="3" y="16" width="7" height="5"></rect>
+                </svg>
+                <h3>System Architecture</h3>
+            </div>
+            <p>
+                The plugin relies on an Object-Oriented singleton architecture (instantiated as
+                <code>AIVM_Pro_Plugin</code>) and implements core hook bindings dynamically. This ensures that the
+                codebase maintains a minimal memory footprint and zero external library dependencies.
+            </p>
+            <div class="callout">
+                <p><strong>GDPR and Privacy Policy:</strong> In compliance with global data privacy requirements, the
+                    plugin never stores raw visitor IP addresses. All incoming request IPs are processed using a secure,
+                    one-way hash algorithm (<code>md5($ip)</code>) prior to database logging or transient generation.
+                </p>
+            </div>
+            <p>
+                Database assets are safely isolated via standard WordPress prefix mapping (using
+                <code>$wpdb->prefix</code>), ensuring compatibility with multi-site networks and custom prefixes.
+            </p>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Database Table Name</th>
+                            <th>Primary Purpose</th>
+                            <th>Unique Keys</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>wp_aivmp_analytics</code></td>
+                            <td>Logs bot activities, challenge verifications, and incoming AI referral hits.</td>
+                            <td><code>id</code> (AI), <code>session_id</code>, <code>ip_hash</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>wp_aivmp_wc_attribution</code></td>
+                            <td>Stores WooCommerce order IDs linked to AI referral journeys and conversion totals.</td>
+                            <td><code>id</code> (AI), <code>order_id</code> (Unique)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 3: AI Firewall & Rate Limiting -->
+        <section id="firewall">
+            <div class="section-header">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+                <h3>Real-Time AI Firewall & Limits</h3>
+            </div>
+            <p>
+                The firewall acts at the early <code>plugins_loaded</code> hook, executing before WordPress does
+                template lookups or database routing. This prevents resource starvation when aggressive AI scrapers
+                recursively request pages.
+            </p>
+            <p>For each recognized crawler, you can apply four distinct policies:</p>
+            <ul>
+                <li><strong>Allow:</strong> Passes the request through to the standard rendering pipeline.</li>
+                <li><strong>Block:</strong> Halts execution immediately with a <code>403 Forbidden</code> response.</li>
+                <li><strong>Rate Limit:</strong> Imposes request limits over minute, hour, and day windows. If exceeded,
+                    returns a <code>429 Too Many Requests</code> with a <code>Retry-After: 60</code> header. Limit
+                    counts are stored securely using WordPress Transients.</li>
+                <li><strong>Challenge:</strong> Renders a client-side JavaScript verification screen. Normal browsers
+                    automatically solve the challenge and receive a bypass cookie, while headless scraper scripts are
+                    locked out with a <code>401 Unauthorized</code> response.</li>
+            </ul>
+
+            <div class="challenge-simulator">
+                <div class="sim-spinner"></div>
+                <h4>Verifying your browser...</h4>
+                <p style="color: #94a3b8; font-size: 13.5px;">Your user agent was flagged as GPTBot. Please verify you
+                    are human to continue accessing the site.</p>
+                <a href="#" class="sim-btn" onclick="alert('Challenge Verification Solved!'); return false;">Verify and
+                    Proceed</a>
+            </div>
+
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Crawler Key</th>
+                            <th>User Agent Substring</th>
+                            <th>Default Rule</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>gptbot</code></td>
+                            <td>GPTBot</td>
+                            <td>Allow</td>
+                        </tr>
+                        <tr>
+                            <td><code>claudebot</code></td>
+                            <td>ClaudeBot</td>
+                            <td>Allow</td>
+                        </tr>
+                        <tr>
+                            <td><code>perplexitybot</code></td>
+                            <td>PerplexityBot</td>
+                            <td>Allow</td>
+                        </tr>
+                        <tr>
+                            <td><code>ccbot</code></td>
+                            <td>CCBot</td>
+                            <td>Block</td>
+                        </tr>
+                        <tr>
+                            <td><code>omgilibot</code></td>
+                            <td>Omgilibot</td>
+                            <td>Block</td>
+                        </tr>
+                        <tr>
+                            <td><code>bytespider</code></td>
+                            <td>Bytespider</td>
+                            <td>Block</td>
+                        </tr>
+                        <tr>
+                            <td><code>amazonbot</code></td>
+                            <td>Amazonbot</td>
+                            <td>Allow</td>
+                        </tr>
+                        <tr>
+                            <td><code>facebookbot</code></td>
+                            <td>FacebookBot</td>
+                            <td>Allow</td>
+                        </tr>
+                        <tr>
+                            <td><code>google-extended</code></td>
+                            <td>Google-Extended</td>
+                            <td>Allow</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 4: llms.txt & llms-full.txt Routing -->
+        <section id="llms-txt">
+            <div class="section-header">
+                <svg viewBox="0 0 24 24">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                    <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+                <h3>llms.txt & llms-full.txt Catalogs</h3>
+            </div>
+            <p>
+                To allow search indexers and AI agents to quickly summarize your site structure and parse content, the
+                plugin registers virtual rewrite routes to serve markdown files:
+            </p>
+            <ul>
+                <li><strong>/llms.txt:</strong> Displays a high-level site summary followed by a clean markdown list
+                    containing up to 250 of the most recently published URLs.</li>
+                <li><strong>/llms-full.txt:</strong> Builds a combined, lightweight document exporting full posts,
+                    pages, and products in a clean, human-readable markdown format.</li>
+            </ul>
+            <p>
+                The parsing pipeline converts complex HTML pages into clean markdown elements dynamically using regex
+                replacement patterns, removing scripts, block comments, and custom HTML attributes.
+            </p>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span>HTML to Markdown Parser Logic (class-aivmp-llms-txt.php)</span>
+                    <button class="copy-btn">Copy Code</button>
+                </div>
+                <pre><code><span class="token-keyword">public function</span> <span class="token-function">html_to_markdown</span>( <span class="token-variable">$html</span> ) {
+    <span class="token-comment">// Strip shortcodes and Gutenberg blocks comments</span>
+    <span class="token-variable">$html</span> = <span class="token-function">strip_shortcodes</span>( <span class="token-variable">$html</span> );
+    <span class="token-variable">$html</span> = <span class="token-function">preg_replace</span>( <span class="token-string">'/&lt;!--\s+\/?wp:[^&gt;]+--&gt;/'</span>, <span class="token-string">''</span>, <span class="token-variable">$html</span> );
+
+    <span class="token-comment">// Strip script blocks and stylesheets</span>
+    <span class="token-variable">$html</span> = <span class="token-function">preg_replace</span>( <span class="token-string">'/&lt;(script|style)[^&gt;]*?&gt;.*?&lt;\/\1&gt;/is'</span>, <span class="token-string">''</span>, <span class="token-variable">$html</span> );
+
+    <span class="token-comment">// Format headings into markdown markers</span>
+    <span class="token-variable">$html</span> = <span class="token-function">preg_replace</span>( <span class="token-string">'/&lt;h1[^&gt;]*?&gt;(.*?)&lt;\/h1&gt;/i'</span>, <span class="token-string">"\n# $1\n"</span>, <span class="token-variable">$html</span> );
+    <span class="token-variable">$html</span> = <span class="token-function">preg_replace</span>( <span class="token-string">'/&lt;h2[^&gt;]*?&gt;(.*?)&lt;\/h2&gt;/i'</span>, <span class="token-string">"\n## $1\n"</span>, <span class="token-variable">$html</span> );
+
+    <span class="token-comment">// Strip all remaining HTML tags</span>
+    <span class="token-variable">$html</span> = <span class="token-function">wp_strip_all_tags</span>( <span class="token-variable">$html</span> );
+    <span class="token-keyword">return</span> <span class="token-function">trim</span>( <span class="token-variable">$html</span> );
+}</code></pre>
+            </div>
+            <div class="callout callout-warning">
+                <p><strong>Performance Notice:</strong> Content caching is highly recommended. Set the cache duration
+                    setting (<code>aivmp_llms_cache_duration</code>) to keep the generated markdown cached in
+                    transients. This avoids reprocessing heavy queries on concurrent visits.</p>
+            </div>
+        </section>
+
+        <!-- Section 5: AI XML Sitemap -->
+        <section id="sitemap">
+            <div class="section-header">
+                <svg viewBox="0 0 24 24">
+                    <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                    <polyline points="2 17 12 22 22 17"></polyline>
+                    <polyline points="2 12 12 17 22 12"></polyline>
+                </svg>
+                <h3>AI XML Sitemap</h3>
+            </div>
+            <p>
+                In addition to markdown indexes, the plugin publishes a virtual index map at
+                <code>/ai-sitemap.xml</code>. This sitemap aggregates site content metadata and organizes links for
+                rapid crawler indexing.
+            </p>
+            <p>The sitemap engine automatically queries and structures the following elements:</p>
+            <ul>
+                <li><strong>Core Content:</strong> Singular posts and pages with last modified timestamps.</li>
+                <li><strong>WooCommerce Integration:</strong> Appends products with tailored crawl priorities
+                    (<code>0.8</code>) and update frequencies.</li>
+                <li><strong>Taxonomy Terms:</strong> Catalogs categories, tags, and product categories.</li>
+                <li><strong>Authors:</strong> Lists profile archive routes for content publishers on the platform.</li>
+            </ul>
+            <p>To prevent database lockups during concurrent crawls, sitemap results are compressed and stored in the
+                <code>aivmp_sitemap_cache</code> transient for 24 hours.</p>
+        </section>
+
+        <!-- Section 6: JSON-LD Entity Graph -->
+        <section id="schema">
+            <div class="section-header">
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
+                    </path>
+                    <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                    <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                </svg>
+                <h3>JSON-LD Entity Graph Builder</h3>
+            </div>
+            <p>
+                Search algorithms rely on relational data to link entities (such as organizations, authors, articles,
+                and products) together. The schema engine builds a relational <code>@graph</code> block injected into
+                the site's head template.
+            </p>
+            <div class="code-container">
+                <div class="code-header">
+                    <span>Generated JSON-LD Example Output</span>
+                    <button class="copy-btn">Copy Code</button>
+                </div>
+                <pre><code>{
+  <span class="token-keyword">"@context"</span>: <span class="token-string">"https://schema.org"</span>,
+  <span class="token-keyword">"@graph"</span>: [
+    {
+      <span class="token-keyword">"@type"</span>: <span class="token-string">"WebSite"</span>,
+      <span class="token-keyword">"@id"</span>: <span class="token-string">"https://mysite.com/#website"</span>,
+      <span class="token-keyword">"url"</span>: <span class="token-string">"https://mysite.com"</span>,
+      <span class="token-keyword">"name"</span>: <span class="token-string">"My Enterprise Portal"</span>,
+      <span class="token-keyword">"publisher"</span>: { <span class="token-keyword">"@id"</span>: <span class="token-string">"https://mysite.com/#organization"</span> }
+    },
+    {
+      <span class="token-keyword">"@type"</span>: <span class="token-string">"Organization"</span>,
+      <span class="token-keyword">"@id"</span>: <span class="token-string">"https://mysite.com/#organization"</span>,
+      <span class="token-keyword">"name"</span>: <span class="token-string">"My Enterprise Portal"</span>,
+      <span class="token-keyword">"sameAs"</span>: [
+        <span class="token-string">"https://twitter.com/mybrand"</span>,
+        <span class="token-string">"https://linkedin.com/company/mybrand"</span>
+      ]
+    }
+  ]
+}</code></pre>
+            </div>
+            <p>
+                <strong>Yoast & Rank Math Compatibility:</strong> When compatibility mode is enabled, the plugin hooks
+                directly into <code>wpseo_schema_graph</code> and <code>rank_math/json_ld</code> filters. Instead of
+                rendering a duplicate script tag, it merges its entities seamlessly into the existing SEO graph.
+            </p>
+        </section>
+
+        <!-- Section 7: WooCommerce Attribution -->
+        <section id="woocommerce">
+            <div class="section-header">
+                <svg viewBox="0 0 24 24">
+                    <circle cx="9" cy="21" r="1"></circle>
+                    <circle cx="20" cy="21" r="1"></circle>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                </svg>
+                <h3>WooCommerce AI Attribution</h3>
+            </div>
+            <p>
+                The attribution module monitors incoming referrals to track customers originating from AI platforms. It
+                records paths and calculates conversion value on checkout.
+            </p>
+            <div class="callout">
+                <p><strong>Tracking Strategy:</strong> The customer landing page and referring source are kept in active
+                    PHP sessions and cookie variables (<code>aivmp_wc_referrer</code> and
+                    <code>aivmp_wc_landing_page</code>). The customer’s relative browsing history is stored in a cookie
+                    array limited to 15 entries to prevent cookie header size overflow.</p>
+            </div>
+            <p>
+                When a customer completes an order, the <code>woocommerce_checkout_order_processed</code> hook captures
+                the transaction details and persists them inside the <code>wp_aivmp_wc_attribution</code> table:
+            </p>
+            <ul>
+                <li><strong>Referrer:</strong> The matched AI search platform (ChatGPT, Perplexity, Claude, Gemini,
+                    etc.).</li>
+                <li><strong>Landing URL:</strong> The customer entry point on the website.</li>
+                <li><strong>Order Total:</strong> Total cart value, including tax and shipping.</li>
+                <li><strong>Journey Log:</strong> List of relative pages visited before checking out.</li>
+            </ul>
+        </section>
+
+        <!-- Section 8: Analytics & Advanced Reports -->
+        <section id="analytics">
+            <div class="section-header">
+                <svg viewBox="0 0 24 24">
+                    <line x1="18" y1="20" x2="18" y2="10"></line>
+                    <line x1="12" y1="20" x2="12" y2="4"></line>
+                    <line x1="6" y1="20" x2="6" y2="14"></line>
+                </svg>
+                <h3>Analytics, Reports & Cron</h3>
+            </div>
+            <p>
+                Admin dashboard interfaces display interactive crawl metrics, block tallies, and sales referral trends.
+                The charts are powered by a localized version of <strong>Chart.js v3.9.1</strong>, keeping all asset
+                loads offline and GDPR-compliant.
+            </p>
+            <p>
+                <strong>Scheduled Executive Reports:</strong> If enabled, a WordPress cron hook
+                (<code>aivmp_send_scheduled_reports</code>) triggers on a regular interval (daily, weekly, or monthly)
+                to compile traffic analytics, sales conversions, and source distributions, emailing them to the
+                configured administrator address.
+            </p>
+            <p>
+                <strong>Exporting Data:</strong> Developers and managers can navigate to the Tools tab to run manual
+                reporting. The plugin generates structured <code>CSV</code> dumps of database records or triggers
+                print-ready <code>HTML-to-PDF</code> styled stylesheets for executive presentations.
+            </p>
+        </section>
+
+        <!-- Section 9: Server Configurations -->
+        <section id="server-config">
+            <div class="section-header">
+                <svg viewBox="0 0 24 24">
+                    <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+                    <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+                    <line x1="6" y1="6" x2="6.01" y2="6"></line>
+                    <line x1="6" y1="18" x2="6.01" y2="18"></line>
+                </svg>
+                <h3>Server Configurations & Rewrites</h3>
+            </div>
+            <p>
+                WordPress handles virtual routes automatically by appending rules to the <code>.htaccess</code>
+                configuration on Apache servers. However, on custom stacks or Nginx environments, manual directives may
+                be required.
+            </p>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span>Nginx Server Block Directives</span>
+                    <button class="copy-btn">Copy Code</button>
+                </div>
+                <pre><code># AI Visibility Manager Pro Virtual Routes
+rewrite ^/llms\.txt$ /index.php?aivmp_llms_txt=1 last;
+rewrite ^/llms-full\.txt$ /index.php?aivmp_llms_full_txt=1 last;
+rewrite ^/ai-sitemap\.xml$ /index.php?aivmp_sitemap=1 last;
+
+# Default fallback rule for general WP permalinks
+location / {
+    try_files $uri $uri/ /index.php?$args;
+}</code></pre>
+            </div>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span>Apache Rewrite Directives</span>
+                    <button class="copy-btn">Copy Code</button>
+                </div>
+                <pre><code>&lt;IfModule mod_rewrite.c&gt;
+RewriteEngine On
+RewriteBase /
+RewriteRule ^llms\.txt$ index.php?aivmp_llms_txt=1 [L,QSA]
+RewriteRule ^llms-full\.txt$ index.php?aivmp_llms_full_txt=1 [L,QSA]
+RewriteRule ^ai-sitemap\.xml$ index.php?aivmp_sitemap=1 [L,QSA]
+&lt;/IfModule&gt;</code></pre>
+            </div>
+        </section>
+
+        <!-- Section 10: FAQ & Diagnostics -->
+        <section id="faq">
+            <div class="section-header">
+                <svg viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                <h3>FAQ & Diagnostics</h3>
+            </div>
+
+            <h4 style="margin: 20px 0 8px 0; font-size: 16px;">Q: The virtual routes (/llms.txt, /ai-sitemap.xml) are
+                returning 404 errors.</h4>
+            <p>
+                A: This typically indicates that rewrite rules have not been flushed. Go to <strong>Settings >
+                    Permalinks</strong> in the WordPress dashboard and click <strong>Save Changes</strong>. This
+                triggers a core rewrite rules rebuild. Also, ensure your site does not use plain permalinks (e.g.
+                <code>?p=123</code>).
+            </p>
+
+            <h4 style="margin: 20px 0 8px 0; font-size: 16px;">Q: Does the firewall restrict standard Search Engine
+                crawlers like Googlebot or Bingbot?</h4>
+            <p>
+                A: No. The firewall strictly maps specifically flagged AI-centric agents (such as <code>GPTBot</code>,
+                <code>ClaudeBot</code>, and <code>CCBot</code>). General web crawlers used for standard search result
+                listings are not affected by default.
+            </p>
+
+            <h4 style="margin: 20px 0 8px 0; font-size: 16px;">Q: How can I manually trigger a rebuild of cached
+                sitemaps or markdown catalogs?</h4>
+            <p>
+                A: The cache is flushed automatically whenever posts are updated or saved. To manually clear the cache,
+                go to the <strong>Status</strong> tab in the plugin settings and click the <strong>Flush Transients
+                    Cache</strong> button.
+            </p>
+
+            <h4 style="margin: 20px 0 8px 0; font-size: 16px;">Q: Where are the local scripts loaded from?</h4>
+            <p>
+                A: To maintain compliance with WordPress.org guidelines regarding data leakage and CDNs, Chart.js is
+                bundled locally inside <code>/admin/js/chart.min.js</code>. No remote scripts or styles are requested
+                during operation.
+            </p>
+        </section>
+    </main>
+
+    <script>
+        // Real-time keyword search filter logic
+        const searchBox = document.getElementById('search-box');
+        const sections = document.querySelectorAll('main section');
+        const navLinksList = document.querySelectorAll('#nav-links .nav-link');
+
+        searchBox.addEventListener('input', function (e) {
+            const query = e.target.value.toLowerCase().trim();
+
+            sections.forEach(section => {
+                const text = section.innerText.toLowerCase();
+                const matched = text.includes(query);
+
+                if (matched) {
+                    section.style.display = 'block';
+
+                    // Highlight query terms within paragraphs and headings
+                    if (query.length > 2) {
+                        removeHighlights(section);
+                        applyHighlights(section, query);
+                    } else {
+                        removeHighlights(section);
+                    }
+                } else {
+                    section.style.display = 'none';
+                }
+            });
+
+            // Adjust active nav item visibility
+            navLinksList.forEach(link => {
+                const targetId = link.getAttribute('data-target');
+                const targetSec = document.getElementById(targetId);
+                if (targetSec.style.display === 'none') {
+                    link.style.opacity = '0.4';
+                } else {
+                    link.style.opacity = '1';
+                }
+            });
+        });
+
+        function applyHighlights(root, word) {
+            const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false);
+            const nodes = [];
+            while (walker.nextNode()) {
+                if (walker.currentNode.parentNode.tagName !== 'CODE' && walker.currentNode.parentNode.tagName !== 'SPAN') {
+                    nodes.push(walker.currentNode);
+                }
+            }
+
+            nodes.forEach(node => {
+                const text = node.nodeValue;
+                const lowerText = text.toLowerCase();
+                const index = lowerText.indexOf(word);
+                if (index !== -1) {
+                    const span = document.createElement('span');
+                    span.className = 'highlight-container';
+
+                    const before = text.substring(0, index);
+                    const match = text.substring(index, index + word.length);
+                    const after = text.substring(index + word.length);
+
+                    const beforeNode = document.createTextNode(before);
+                    const markNode = document.createElement('mark');
+                    markNode.appendChild(document.createTextNode(match));
+                    const afterNode = document.createTextNode(after);
+
+                    span.appendChild(beforeNode);
+                    span.appendChild(markNode);
+                    span.appendChild(afterNode);
+
+                    node.parentNode.replaceChild(span, node);
+                }
+            });
+        }
+
+        function removeHighlights(root) {
+            const marks = root.querySelectorAll('mark');
+            marks.forEach(mark => {
+                const container = mark.parentNode;
+                if (container && container.classList.contains('highlight-container')) {
+                    const textNode = document.createTextNode(container.innerText);
+                    container.parentNode.replaceChild(textNode, container);
+                }
+            });
+        }
+
+        // Copy-to-clipboard functionality
+        document.querySelectorAll('.copy-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                const container = this.closest('.code-container');
+                const codeElement = container.querySelector('code');
+                const rawText = codeElement.innerText;
+
+                navigator.clipboard.writeText(rawText).then(() => {
+                    const originalText = this.innerText;
+                    this.innerText = 'Copied!';
+                    this.style.backgroundColor = 'var(--success)';
+                    this.style.color = '#ffffff';
+                    setTimeout(() => {
+                        this.innerText = originalText;
+                        this.style.backgroundColor = '';
+                        this.style.color = '';
+                    }, 2000);
+                });
+            });
+        });
+
+        // Smooth active navigation highlighting via IntersectionObserver
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px -10% -80% 0px',
+            threshold: 0
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    navLinksList.forEach(link => {
+                        if (link.getAttribute('data-target') === id) {
+                            link.classList.add('active');
+                        } else {
+                            link.classList.remove('active');
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => observer.observe(section));
+
+        // Light/Dark Theme Switcher
+        const themeSwitcher = document.getElementById('theme-switcher');
+
+        // Load initial theme selection
+        const storedTheme = localStorage.getItem('aivmp_docs_theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', storedTheme);
+        themeSwitcher.checked = (storedTheme === 'dark');
+
+        themeSwitcher.addEventListener('change', function () {
+            const newTheme = this.checked ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('aivmp_docs_theme', newTheme);
+        });
+    </script>
+</body>
+
+</html>
