@@ -40,7 +40,6 @@
 
 html {
     scroll-behavior: smooth;
-    overflow-x: hidden;
 }
 
 body {
@@ -372,7 +371,7 @@ h1, h2, h3, h4 {
     z-index: 1000;
     padding: 1rem 0;
     pointer-events: none;
-    transform: translateY(0);
+    overflow: visible;
     opacity: 1;
     transition:
         transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
@@ -387,16 +386,28 @@ h1, h2, h3, h4 {
 
 .header__shell {
     pointer-events: auto;
+    position: relative;
+    isolation: isolate;
     width: calc(100% - 2.5rem);
     max-width: 1160px;
     margin: 0 auto;
-    background: rgba(255, 255, 255, 0.88);
-    backdrop-filter: blur(24px) saturate(180%);
-    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    background: rgba(255, 255, 255, 0.72);
     border: 1px solid var(--border);
     border-radius: 20px;
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+    overflow: visible;
     transition: background var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+
+.header__shell::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    border-radius: inherit;
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    pointer-events: none;
 }
 
 .header--scrolled .header__shell {
@@ -406,6 +417,8 @@ h1, h2, h3, h4 {
 }
 
 .header__inner {
+    position: relative;
+    z-index: 1;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -1331,22 +1344,31 @@ h1, h2, h3, h4 {
         top: 0;
         right: 0;
         bottom: 0;
-        width: min(320px, 88vw);
+        left: auto;
+        width: min(22rem, calc(100vw - 1.25rem));
+        height: 100vh;
+        height: 100dvh;
+        max-height: none;
         background: var(--bg-elevated);
         border-left: 1px solid var(--border);
         box-shadow: -12px 0 48px rgba(0, 0, 0, 0.12);
-        padding: calc(var(--header-h) + 1.5rem) 1.25rem 2rem;
-        transform: translateX(100%);
+        padding: calc(var(--header-h) + 0.75rem) 1.25rem max(2rem, env(safe-area-inset-bottom));
+        transform: translate3d(100%, 0, 0);
         opacity: 1;
         visibility: hidden;
+        pointer-events: none;
         transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.4s;
         z-index: 999;
+        overflow-x: hidden;
         overflow-y: auto;
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
     }
 
     .main-nav.active {
-        transform: translateX(0);
+        transform: translate3d(0, 0, 0);
         visibility: visible;
+        pointer-events: auto;
     }
 
     .main-nav ul {

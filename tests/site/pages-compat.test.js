@@ -35,6 +35,19 @@ describe('GitHub Pages static compatibility', () => {
         assert.equal(fs.existsSync(path.join(root, 'images/job-assistant.svg')), true);
     });
 
+    it('does not trap the mobile nav inside a header containing block', () => {
+        const css = fs.readFileSync(path.join(root, 'css/style.css'), 'utf8');
+        const headerBlock = css.match(/\/\* Header \*\/\s*\.header \{([^}]+)\}/);
+        const shellBlock = css.match(/\.header__shell \{([^}]+)\}/);
+
+        assert.ok(headerBlock, 'expected a base .header rule');
+        assert.ok(shellBlock, 'expected a base .header__shell rule');
+        assert.equal(/transform\s*:/.test(headerBlock[1]), false);
+        assert.equal(/backdrop-filter\s*:/.test(shellBlock[1]), false);
+        assert.match(css, /\.header__shell::before \{[\s\S]*backdrop-filter:/);
+        assert.match(css, /\.main-nav \{\s*position:\s*fixed;/);
+    });
+
     it('keeps Play listings on package IDs instead of a browser Play Store fetch', () => {
         const main = fs.readFileSync(path.join(root, 'js/main.js'), 'utf8');
         assert.match(siteData, /playPackages/);
