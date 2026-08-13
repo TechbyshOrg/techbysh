@@ -40,6 +40,7 @@
 
 html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
 }
 
 body {
@@ -240,6 +241,9 @@ h1, h2, h3, h4 {
     justify-content: center;
     gap: 0.5rem;
     padding: 0.8rem 1.5rem;
+    min-height: 44px;
+    max-width: 100%;
+    text-align: center;
     border-radius: 999px;
     font-family: var(--font-sans);
     font-weight: 600;
@@ -383,10 +387,9 @@ h1, h2, h3, h4 {
 
 .header__shell {
     pointer-events: auto;
-    margin: 0 1.25rem;
+    width: calc(100% - 2.5rem);
     max-width: 1160px;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0 auto;
     background: rgba(255, 255, 255, 0.88);
     backdrop-filter: blur(24px) saturate(180%);
     -webkit-backdrop-filter: blur(24px) saturate(180%);
@@ -676,6 +679,7 @@ h1, h2, h3, h4 {
     color: var(--text-muted);
     text-transform: uppercase;
     letter-spacing: 0.06em;
+    overflow-wrap: anywhere;
 }
 
 .hero__panel {
@@ -798,7 +802,7 @@ h1, h2, h3, h4 {
 /* Products */
 .products-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
     gap: 1.25rem;
 }
 
@@ -845,6 +849,24 @@ h1, h2, h3, h4 {
     height: 72px;
     object-fit: cover;
     border-radius: 12px;
+}
+
+.product-icon--mark {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+}
+
+.product-icon--mark img {
+    object-fit: contain;
+    padding: 0.7rem;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.product-info h3,
+.product-info p {
+    overflow-wrap: anywhere;
 }
 
 .product-info h3 {
@@ -987,6 +1009,7 @@ h1, h2, h3, h4 {
     font-weight: 800;
     color: var(--accent);
     margin-bottom: 0.25rem;
+    overflow-wrap: anywhere;
 }
 
 .stat-card__label {
@@ -1293,7 +1316,8 @@ h1, h2, h3, h4 {
     }
 
     .header__shell {
-        margin: 0 0.75rem;
+        width: calc(100% - 1.5rem);
+        margin: 0 auto;
         border-radius: 18px;
     }
 
@@ -1371,10 +1395,18 @@ h1, h2, h3, h4 {
         width: 100%;
     }
 
+    .product-actions .btn {
+        width: 100%;
+    }
+
     .cta-banner__inner {
         flex-direction: column;
         text-align: center;
         padding: 2rem;
+    }
+
+    .cta-banner__inner .btn {
+        width: 100%;
     }
 
     .stat-card--wide {
@@ -1389,10 +1421,19 @@ h1, h2, h3, h4 {
 @media (max-width: 480px) {
     .hero__metrics {
         gap: 1.25rem;
+        justify-content: space-between;
+    }
+
+    .hero__metrics li {
+        min-width: 0;
     }
 
     .about-stats {
         grid-template-columns: 1fr;
+    }
+
+    .stat-card__value {
+        font-size: 1.2rem;
     }
 
     .tech-grid {
@@ -1403,6 +1444,17 @@ h1, h2, h3, h4 {
     .tech-pill {
         font-size: 0.8125rem;
         padding: 0.65rem 0.5rem;
+    }
+
+    .container {
+        padding: 0 1.15rem;
+    }
+
+    .service-card,
+    .feature-card,
+    .product-card,
+    .contact-form {
+        padding: 1.25rem;
     }
 }
 

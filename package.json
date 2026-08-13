@@ -1,0 +1,15 @@
+{
+  "name": "techbysh-site",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "sync:play": "node scripts/play-listings/cli.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "googleapis": "^164.1.0"
+  }
+}

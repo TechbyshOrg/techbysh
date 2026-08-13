@@ -1,0 +1,19 @@
+{
+    "developerName": "Techbysh",
+    "packages": [
+        "com.techbysh.fliptap",
+        "com.techbysh.cliply",
+        "com.techbysh.trackpit"
+    ],
+    "overlays": {
+        "com.techbysh.fliptap": {
+            "privacyUrl": "fliptap/privacy_policy.html"
+        },
+        "com.techbysh.cliply": {
+            "privacyUrl": "cliply/privacy_policy.html"
+        },
+        "com.techbysh.trackpit": {
+            "privacyUrl": "trackpit/privacy_policy.html"
+        }
+    }
+}

@@ -1,8 +1,43 @@
 (function ($) {
     'use strict';
 
-    const site = window.TechbyshSite || { mobileApps: [], wpAuthor: 'techbysh', contactEmail: 'info@techbysh.com' };
+    const site = window.TechbyshSite || { mobileApps: [], saasProducts: [], wpAuthor: 'techbysh', contactEmail: 'info@techbysh.com' };
     let loadedPlugins = [];
+
+    function getMobileApps() {
+        const listings = Array.isArray(window.TechbyshPlayListings) ? window.TechbyshPlayListings : [];
+        const fallback = site.mobileApps || [];
+        const byPackage = {};
+
+        fallback.forEach(function (app) {
+            if (app && app.package) {
+                byPackage[app.package] = app;
+            }
+        });
+        listings.forEach(function (app) {
+            if (app && app.package) {
+                byPackage[app.package] = app;
+            }
+        });
+
+        const order = (site.playPackages && site.playPackages.length)
+            ? site.playPackages.slice()
+            : Object.keys(byPackage);
+
+        listings.concat(fallback).forEach(function (app) {
+            if (app && app.package && order.indexOf(app.package) === -1) {
+                order.push(app.package);
+            }
+        });
+
+        return order.map(function (packageName) {
+            return byPackage[packageName];
+        }).filter(Boolean);
+    }
+
+    function getSaasProducts() {
+        return site.saasProducts || [];
+    }
 
     function escapeHtml(str) {
         if (!str) return '';
@@ -34,19 +69,20 @@
     }
 
     function productCard(opts) {
-        const { iconUrl, name, description, typeLabel, primaryHref, primaryLabel, secondaryHref, secondaryLabel } = opts;
+        const { iconUrl, name, description, typeLabel, primaryHref, primaryLabel, secondaryHref, secondaryLabel, iconFit } = opts;
         let secondary = '';
         if (secondaryHref) {
             const external = /^https?:\/\//i.test(secondaryHref);
             const targetAttr = external ? ' target="_blank" rel="noopener"' : '';
             secondary = `<a href="${escapeHtml(secondaryHref)}" class="card-link card-link--muted"${targetAttr}>${escapeHtml(secondaryLabel)}</a>`;
         }
+        const iconClass = iconFit === 'contain' ? 'product-icon product-icon--mark' : 'product-icon';
 
         return `
             <article class="product-card glass-card" data-reveal data-tilt>
                 <div class="product-card__top">
-                    <div class="product-icon">
-                        <img src="${escapeHtml(iconUrl)}" alt="" width="72" height="72" loading="lazy" />
+                    <div class="${iconClass}">
+                        <img src="${escapeHtml(iconUrl)}" alt="" width="72" height="72" loading="lazy" referrerpolicy="no-referrer" />
                     </div>
                     <span class="product-card__badge">${escapeHtml(typeLabel)}</span>
                 </div>
@@ -61,8 +97,44 @@
             </article>`;
     }
 
+    function renderSaasProducts() {
+        const apps = getSaasProducts();
+        const $section = $('#saas-products-section');
+        const $container = $('#saas-products-container');
+
+        if (!apps.length) {
+            $section.hide();
+            updateProductsVisibility();
+            refreshUI();
+            return;
+        }
+
+        $section.show();
+        $container.empty();
+
+        apps.forEach(function (app) {
+            let primaryLabel = 'Open product';
+            try {
+                primaryLabel = 'Visit ' + new URL(app.url).hostname;
+            } catch (err) { /* keep fallback */ }
+
+            $container.append(productCard({
+                iconUrl: app.icon,
+                name: app.name,
+                description: app.short_description,
+                typeLabel: 'SaaS',
+                primaryHref: app.url,
+                primaryLabel: primaryLabel,
+                iconFit: app.iconFit
+            }));
+        });
+
+        updateProductsVisibility();
+        refreshUI();
+    }
+
     function renderMobileApps() {
-        const apps = site.mobileApps || [];
+        const apps = getMobileApps();
         const $section = $('#mobile-apps-section');
         const $container = $('#mobile-apps-container');
 
@@ -77,7 +149,8 @@
         $container.empty();
 
         apps.forEach(function (app) {
-            const playStoreLink = 'https://play.google.com/store/apps/details?id=' + encodeURIComponent(app.package);
+            const playStoreLink = app.playUrl
+                || ('https://play.google.com/store/apps/details?id=' + encodeURIComponent(app.package));
             $container.append(productCard({
                 iconUrl: app.icon,
                 name: app.name,
@@ -130,9 +203,10 @@
 
     function updateProductsVisibility() {
         const hasPlugins = loadedPlugins.length > 0;
-        const hasApps = (site.mobileApps || []).length > 0;
+        const hasApps = getMobileApps().length > 0;
+        const hasSaas = getSaasProducts().length > 0;
 
-        if (!hasPlugins && !hasApps) {
+        if (!hasPlugins && !hasApps && !hasSaas) {
             $('#products-empty').prop('hidden', false);
         } else {
             $('#products-empty').prop('hidden', true);
@@ -190,7 +264,9 @@
     $(document).ready(function () {
         initContactForm();
 
-        $('#mobile-apps-container').html(skeletonCards(site.mobileApps.length || 1));
+        $('#saas-products-container').html(skeletonCards(getSaasProducts().length || 1));
+        renderSaasProducts();
+        $('#mobile-apps-container').html(skeletonCards(getMobileApps().length || 1));
         renderMobileApps();
         fetchWordPressPlugins();
     });

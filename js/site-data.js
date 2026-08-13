@@ -1,25 +1,55 @@
 /**
- * Single source of truth for Techbysh mobile app products.
- * Only add apps that are published under com.techbysh.* on Google Play.
+ * Owner-side product config for Techbysh.
+ * WordPress plugins are fetched live from WordPress.org by wpAuthor.
+ * Google Play cards prefer js/play-listings.js (refreshed by npm run sync:play).
+ * playPackages is the allowlist of application IDs. Google Play has no public
+ * developer-name catalog API, so package IDs are required.
+ * mobileApps remains a fallback if generated Play listings are unavailable.
  */
 window.TechbyshSite = {
     contactEmail: 'info@techbysh.com',
     wpAuthor: 'techbysh',
+    playDeveloper: 'Techbysh',
+    playPackages: [
+        'com.techbysh.fliptap',
+        'com.techbysh.cliply',
+        'com.techbysh.trackpit'
+    ],
+    saasProducts: [
+        {
+            name: 'AI Job Assistant',
+            url: 'https://jobassistant.online',
+            icon: 'images/job-assistant.svg',
+            short_description: 'Check how well your resume matches a job, then generate tailored resumes, cover letters, and recruiter messages.',
+            iconFit: 'contain'
+        }
+    ],
     mobileApps: [
         {
-            name: 'FlipTap',
+            name: 'FlipTap - Gesture Counter',
             package: 'com.techbysh.fliptap',
-            icon: 'https://play-lh.googleusercontent.com/niDChuoHvXITu2zK6xS-nCJ-wccPM0cHiRgKOeiZTiq68H9TlLNIamw3raVqNGKyzeSWxtR0x36DJGMTgmHHYA=w480-h960-rw',
-            short_description: 'A clean counter app: tap or flip to increase the count.',
-            privacyUrl: '/fliptap/privacy_policy.html',
+            playUrl: 'https://play.google.com/store/apps/details?id=com.techbysh.fliptap',
+            icon: 'https://play-lh.googleusercontent.com/f7eZ_ShYHvYsHWSo8qJHA8lqNohaD5cbtkRN4W6udCobRoSHvZKN-PWOM3c1nfUIZVfsOnaQUaEtDOzKISS4cw=s256-rw',
+            short_description: 'Tally counts with gestures, screen taps, or a floating window over other apps.',
+            privacyUrl: 'fliptap/privacy_policy.html',
             category: 'mobile'
         },
         {
-            name: 'Cliply - Clipboard Manager',
+            name: 'Cliply: Clipboard Manager',
             package: 'com.techbysh.cliply',
-            icon: 'https://play-lh.googleusercontent.com/t5h8U8Hrns_w0yY0FuxdvXqU30kV1B-ZzqaLgoASypMeg5jHr51s_Jh9Qgtx86rdoMsjFLdCqLaqJTyDdbfa=w240-h480-rw',
-            short_description: 'Manage your clipboard history with ease.',
-            privacyUrl: '/cliply/privacy_policy.html',
+            playUrl: 'https://play.google.com/store/apps/details?id=com.techbysh.cliply',
+            icon: 'https://play-lh.googleusercontent.com/yTv9rFNcilfcAJVxqnqB-2owaLYsMOiv6TIiNqunQ4jaHulYd4yvnPYKkcXOJWXIO1jZAoGhEykdP6_dPaSH9cs=s256-rw',
+            short_description: 'Clipboard manager to save, organize, and quickly access copied text.',
+            privacyUrl: 'cliply/privacy_policy.html',
+            category: 'mobile'
+        },
+        {
+            name: 'Trackpit - Expense Tracker',
+            package: 'com.techbysh.trackpit',
+            playUrl: 'https://play.google.com/store/apps/details?id=com.techbysh.trackpit',
+            icon: 'https://play-lh.googleusercontent.com/nXHwTH5r97wDLxmwluOkSwtWZeIUxVx4l8mcPNOefFiYTVVIIvXNw425D3-qgft-ZBEqpbweAWZvWPBaiFb8xA=s256-rw',
+            short_description: 'Scan, categorize, pay, and track every UPI expense instantly.',
+            privacyUrl: 'trackpit/privacy_policy.html',
             category: 'mobile'
         }
     ]

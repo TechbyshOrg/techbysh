@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Techbysh — software and web development, WordPress plugins, and Android apps built for performance and scale.">
+    <meta name="description" content="Techbysh — software and web development, SaaS products, WordPress plugins, and Android apps built for performance and scale.">
     <meta name="theme-color" content="#fafafa">
     <title>Techbysh — Software &amp; Web Development</title>
     <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
@@ -17,6 +17,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
     <script src="js/ui.js" defer></script>
     <script src="js/site-data.js" defer></script>
+    <script src="js/play-listings.js" defer></script>
     <script src="js/main.js" defer></script>
 </head>
 <body>
@@ -28,7 +29,7 @@
     <header class="header" id="site-header">
         <div class="header__shell">
             <div class="container header__inner">
-                <a href="/" class="logo" aria-label="Techbysh home">
+                <a href="./" class="logo" aria-label="Techbysh home">
                     <span class="logo__mark">
                         <img src="images/main-logo-white.svg" alt="" width="36" height="36">
                     </span>
@@ -70,7 +71,7 @@
                         We Scale.
                     </h1>
                     <p class="hero__subtitle">
-                        Custom websites, mobile apps, web applications, and WordPress plugins — engineered for performance, clarity, and long-term growth.
+                        Custom websites, SaaS products, mobile apps, and WordPress plugins — engineered for performance, clarity, and long-term growth.
                     </p>
                     <div class="hero__cta">
                         <a href="#contact" class="btn btn-primary btn-large">
@@ -81,8 +82,8 @@
                     </div>
                     <ul class="hero__metrics">
                         <li><strong>2024</strong><span>Founded</span></li>
-                        <li><strong>2+</strong><span>Android apps</span></li>
-                        <li><strong>2+</strong><span>WP plugins</span></li>
+                        <li><strong>1</strong><span>SaaS product</span></li>
+                        <li><strong>4+</strong><span>Shipped products</span></li>
                     </ul>
                 </div>
 
@@ -91,7 +92,7 @@
                     <p class="hero__panel-label">Our philosophy</p>
                     <h2>Impact Over Ordinary</h2>
                     <p class="hero__panel-highlight">We build digital products that solve real problems.</p>
-                    <p class="hero__panel-text">From Android utilities to WordPress tools and client-facing web platforms, we focus on clean architecture, thoughtful UX, and reliable delivery.</p>
+                    <p class="hero__panel-text">From our Job Assistant SaaS to Android utilities, WordPress tools, and client-facing web platforms, we focus on clean architecture, thoughtful UX, and reliable delivery.</p>
                     <a href="#services" class="link-arrow">Explore services <span aria-hidden="true">→</span></a>
                 </aside>
             </div>
@@ -161,10 +162,15 @@
                 <header class="section-header" data-reveal>
                     <p class="eyebrow">Our Products</p>
                     <h2 class="section-title">Software We Build &amp; Maintain</h2>
-                    <p class="section-lead">WordPress plugins from WordPress.org and Android apps on Google Play — all designed, shipped, and supported by our team.</p>
+                    <p class="section-lead">A live SaaS platform, WordPress plugins on WordPress.org, and Android apps on Google Play — designed, shipped, and supported by our team.</p>
                 </header>
 
                 <p id="products-empty" class="section-empty" hidden data-reveal>No published products are available at the moment.</p>
+
+                <div id="saas-products-section" class="product-block">
+                    <h3 class="section-subtitle" data-reveal>SaaS</h3>
+                    <div class="products-grid" id="saas-products-container" aria-live="polite"></div>
+                </div>
 
                 <div id="wp-plugins-section" class="product-block">
                     <h3 class="section-subtitle" data-reveal>WordPress Plugins</h3>
@@ -188,6 +194,7 @@
                 <div class="tech-grid" role="list" aria-label="Technologies we use" data-reveal>
                     <span class="tech-pill" role="listitem">JavaScript</span>
                     <span class="tech-pill" role="listitem">React</span>
+                    <span class="tech-pill" role="listitem">Python</span>
                     <span class="tech-pill" role="listitem">PHP</span>
                     <span class="tech-pill" role="listitem">WordPress</span>
                     <span class="tech-pill" role="listitem">WooCommerce</span>
@@ -210,7 +217,7 @@
                     <article class="feature-card glass-card" data-reveal data-tilt style="--reveal-delay: 0ms">
                         <span class="feature-card__num">01</span>
                         <h3>Product-First Mindset</h3>
-                        <p>We ship our own plugins and apps, so we understand release cycles, support, and what it takes to maintain software in production.</p>
+                        <p>We ship our own SaaS, plugins, and apps, so we understand release cycles, support, and what it takes to maintain software in production.</p>
                     </article>
                     <article class="feature-card glass-card" data-reveal data-tilt style="--reveal-delay: 80ms">
                         <span class="feature-card__num">02</span>
@@ -236,7 +243,7 @@
                 <div class="about-copy" data-reveal>
                     <p class="eyebrow">About Us</p>
                     <h2 class="section-title section-title--left">A Software Studio Focused on Real Results</h2>
-                    <p>At <strong>Techbysh</strong>, we are developers and designers who build digital products for our own catalog and for clients worldwide. Our published WordPress plugins and Android apps reflect the same standards we bring to custom projects: solid engineering, clean design, and software that works reliably in the real world.</p>
+                    <p>At <strong>Techbysh</strong>, we are developers and designers who build digital products for our own catalog and for clients worldwide. Our SaaS platform, WordPress plugins, and Android apps reflect the same standards we bring to custom projects: solid engineering, clean design, and software that works reliably in the real world.</p>
                     <p>Beyond our product suite, we deliver custom web development, mobile applications, plugin development, and technical consulting. Whether you need a new site, a specialized tool, or help scaling an existing platform, we partner with you from concept through delivery.</p>
                     <a href="#contact" class="btn btn-primary">Work With Us</a>
                 </div>
@@ -246,7 +253,7 @@
                         <span class="stat-card__label">Founded</span>
                     </div>
                     <div class="stat-card glass-card" data-reveal data-tilt style="--reveal-delay: 80ms">
-                        <span class="stat-card__value">2+</span>
+                        <span class="stat-card__value">3</span>
                         <span class="stat-card__label">Published Android apps</span>
                     </div>
                     <div class="stat-card glass-card" data-reveal data-tilt style="--reveal-delay: 160ms">
@@ -254,8 +261,8 @@
                         <span class="stat-card__label">WordPress.org plugins</span>
                     </div>
                     <div class="stat-card glass-card stat-card--wide" data-reveal data-tilt style="--reveal-delay: 240ms">
-                        <span class="stat-card__value">Global</span>
-                        <span class="stat-card__label">Client reach across markets</span>
+                        <span class="stat-card__value">jobassistant.online</span>
+                        <span class="stat-card__label">Live AI Job Assistant SaaS</span>
                     </div>
                 </div>
             </div>
@@ -321,7 +328,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-brand">
-                    <a href="/" class="logo logo--footer">Techbysh</a>
+                    <a href="./" class="logo logo--footer">Techbysh</a>
                     <p>Building innovative software solutions since 2024.</p>
                 </div>
                 <div class="footer-links">
@@ -336,10 +343,12 @@
                 <div class="footer-links">
                     <h4>Products</h4>
                     <ul>
+                        <li><a href="https://jobassistant.online" target="_blank" rel="noopener">AI Job Assistant</a></li>
                         <li><a href="#products">WordPress Plugins</a></li>
                         <li><a href="#products">Mobile Apps</a></li>
-                        <li><a href="/fliptap/privacy_policy.html">FlipTap Privacy</a></li>
-                        <li><a href="/cliply/privacy_policy.html">Cliply Privacy</a></li>
+                        <li><a href="fliptap/privacy_policy.html">FlipTap Privacy</a></li>
+                        <li><a href="cliply/privacy_policy.html">Cliply Privacy</a></li>
+                        <li><a href="trackpit/privacy_policy.html">Trackpit Privacy</a></li>
                     </ul>
                 </div>
                 <div class="footer-links">
