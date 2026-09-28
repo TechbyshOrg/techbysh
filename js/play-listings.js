@@ -23,7 +23,7 @@ window.TechbyshPlayListings = [
     {
         "package": "com.techbysh.trackpit",
         "name": "Trackpit - Expense Tracker",
-        "short_description": "Scan, categorize, pay, and track every UPI expense instantly.",
+        "short_description": "Track UPI payments, expenses, and balances in one place.",
         "icon": "https://play-lh.googleusercontent.com/nXHwTH5r97wDLxmwluOkSwtWZeIUxVx4l8mcPNOefFiYTVVIIvXNw425D3-qgft-ZBEqpbweAWZvWPBaiFb8xA=s0-br30",
         "playUrl": "https://play.google.com/store/apps/details?id=com.techbysh.trackpit",
         "privacyUrl": "trackpit/privacy_policy.html"
